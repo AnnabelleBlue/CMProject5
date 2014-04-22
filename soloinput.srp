@@ -1,6 +1,7 @@
 // An instance of this object will store data about the soloist input, it will
 // be written to by the OSC handlers, and read from the generation algorithms.
 // Mostly, the generation algorithms will look at notesList.
+
 class soloistData
 	var numNotesStored // (int) We store a certain number of notes to work with
 	var notesList // (list) LIFO, oldest notes replaced
@@ -15,26 +16,26 @@ class soloistData
 	// worth the amount of time it would take to implement, but if one of you
 	// can think of a good method by all means - it would be really cool.
 
-	// Some methods
-	addNote()
+	def init()
+		numNotesStored = 20
+		notesList = []
+		memoryTime = 20 // Amount of times we call update() before
+		tonic = 60 // Again, not sure if this is necessary...
+ 
+	def addNote(note)
+		if (len(notesList) > numNotesStored)
+			notesList.uninsert()
+		note.soloistMemory = memoryTime
+		notesList.insert(note, 0)
 
-	deleteNote()
+	// Deletes note at the nth index
+	def deleteNote(n)
+		notesList.uninsert(n)
 
-// how are we going to store a note to be read from soloistData?
-	// an object with instances and methods (playNote, turnOffNote)?
-		// This would be the best, but may run slower or be more complicated
-		// or unnecessary.
-	// just an int?
-		// This is all we need if we want only the pitch data that the soloist
-		// inputs. This is the least specific, but may be all we need.
-	// MIDI representation with [time, pitch, velocity]
-		// This would only be necessary if we wanted to do rhythm readings, or
-		// if we wanted to use the velocity (how would we do velocity with OSC?)
-
-
-// Things we also need to make structures for:
-	// Same thing, but with drum machines
-	// We should make a class for the each of the algorithms themselves
-
-	// We probably don't need to make a class for the actual midi scheduler 
-	// playing music, but that's up to someone else - I'm fine with whatever.
+	def update()
+		for i = 0 to len(notesList)
+			currentNote = notesList[i]
+			if (currentNote.soloistMemory == 0)
+				deleteNote(i)
+			else
+				notesList[i].soloistMemory -= 1

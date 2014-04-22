@@ -1,0 +1,14 @@
+// Note instances will be used for a lot of the project.
+// This contains the MIDI ints pitch and velocity.
+// The duration is something that
+
+class Note
+	var pitch // 
+	var duration
+	var velocity
+	var soloistMemory // This is so we know when to lose the note from memory
+
+	def init(argpitch, argvelocity, argduration)
+		pitch = argpitch
+		velocity = argvelocity
+		duration = argduration
