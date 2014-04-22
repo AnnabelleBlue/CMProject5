@@ -1,0 +1,40 @@
+// An instance of this object will store data about the soloist input, it will
+// be written to by the OSC handlers, and read from the generation algorithms.
+// Mostly, the generation algorithms will look at notesList.
+class soloistData
+	var numNotesStored // (int) We store a certain number of notes to work with
+	var notesList // (list) LIFO, oldest notes replaced
+	var memoryTime // (int) After some time, we delete a note from notesList
+	var tonic // (int) Maybe have this? The soloist could choose their key,
+			  // and given that data we would have a better idea of where the
+			  // melodies we want to work with begin and end.
+
+	// Any info about tempo we could glean from the amount of notes in a list
+	// based on memoryTime. That would tell us the average amount of notes
+	// per (memoryTime) time. I don't think doing precise rhythm checking is
+	// worth the amount of time it would take to implement, but if one of you
+	// can think of a good method by all means - it would be really cool.
+
+	// Some methods
+	addNote()
+
+	deleteNote()
+
+// how are we going to store a note to be read from soloistData?
+	// an object with instances and methods (playNote, turnOffNote)?
+		// This would be the best, but may run slower or be more complicated
+		// or unnecessary.
+	// just an int?
+		// This is all we need if we want only the pitch data that the soloist
+		// inputs. This is the least specific, but may be all we need.
+	// MIDI representation with [time, pitch, velocity]
+		// This would only be necessary if we wanted to do rhythm readings, or
+		// if we wanted to use the velocity (how would we do velocity with OSC?)
+
+
+// Things we also need to make structures for:
+	// Same thing, but with drum machines
+	// We should make a class for the each of the algorithms themselves
+
+	// We probably don't need to make a class for the actual midi scheduler 
+	// playing music, but that's up to someone else - I'm fine with whatever.
