@@ -1,9 +1,10 @@
 // Note instances will be used for a lot of the project.
 // This contains the MIDI ints pitch and velocity.
-// The duration is something that
+// The duration is something that we will use in our scheduler that is not
+// normally included in MIDI messages.
 
 class Note
-	var pitch // 
+	var pitch
 	var duration
 	var velocity
 	var soloistMemory // This is so we know when to lose the note from memory
