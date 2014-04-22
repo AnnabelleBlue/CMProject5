@@ -1,7 +1,14 @@
-//////////////////
-// OSC Handlers //
-//////////////////
+/////////
+// OSC //
+/////////
 
+def handler(path, info)
+	// do something
+
+// Create the actual server and methods
+osc_server_init("15323", true)
+
+osc_server_method("/1/push1", "f", nil, 'handler')
 
 /////////////////////////////
 // Scheduler and main loop //
