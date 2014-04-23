@@ -9,6 +9,30 @@ def handler(path, info)
 osc_server_init("15323", true)
 
 osc_server_method("/1/push1", "f", nil, 'handler')
+osc_server_method("/1/push2", "f", nil, 'handler')
+osc_server_method("/1/push3", "f", nil, 'handler')
+osc_server_method("/1/push4", "f", nil, 'handler')
+osc_server_method("/1/push5", "f", nil, 'handler')
+osc_server_method("/1/push6", "f", nil, 'handler')
+osc_server_method("/1/push7", "f", nil, 'handler')
+osc_server_method("/1/push8", "f", nil, 'handler')
+osc_server_method("/1/push9", "f", nil, 'handler')
+osc_server_method("/1/push10", "f", nil, 'handler')
+osc_server_method("/1/push11", "f", nil, 'handler')
+osc_server_method("/1/push12", "f", nil, 'handler')
+
+
+def 
+
+
+
+
+
+
+
+
+
+
 
 /////////////////////////////
 // Scheduler and main loop //
