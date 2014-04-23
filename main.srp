@@ -15,14 +15,13 @@ require "handlers.srp"
 def drumbeat()
     display "Drumbeat"
     
-    
 def algorithm()
     display "algorithm"
 
 // Plays one beat of one instrument
 def play_beat() 
-    drumbeat()
-    algorithm()
+    //drumbeat()
+    //algorithm()
     
     // Schedule next event
     the_sched.cause(1, nil, 'play_beat')
