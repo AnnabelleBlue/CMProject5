@@ -8,3 +8,81 @@ require "variables.srp"
 //              Handlers
 //
 ///////////////////////////////////////
+inst = 25
+vel = 44
+
+// SOLOIST
+def handle_8_push(path, isOn)
+    display path, isOn
+    
+    // Sets note
+    note = int(path[7])
+    
+    // If the note is double digits
+    if len(path) == 9
+        note = int(path[7] + path[8])
+    
+    // Turns note on or off
+    if int(isOn) == 1
+        midi_out.note_on(0x99, inst, vel)
+    else
+        midi_out.note_on(0x99, inst, 0)
+
+
+    
+// DRUM BEAT
+def handle_2_multitoggle(path, isOn)
+    display path, isOn
+ 
+// ALGO SWITCHER / PARAMETER CONTROLLER
+def handle_3_rotary(path, turn)
+    display path, turn
+    
+// ALGO SWITCHER / PARAMETER CONTROLLER
+def handle_3_toggle(path, isOn)
+    display path, isOn
+        
+// PARAMETER CONTROLLER
+def handle_2_push(path, isOn)
+    display path, isOn
+    
+// PARAMETER CONTROLLER
+def handle_3_push(path, isOn)
+    display path, isOn
+    
+// PARAMETER CONTROLLER
+def handle_3_fader(path, per)
+    display path, per
+    
+///////////////////////////////////////
+//
+//          Server Methods
+//
+///////////////////////////////////////
+def add_server_methods()
+    // SOLOIST
+    for i = 1 to 25
+        osc_server_method("/8/push" + str(i), "f", nil, 'handle_8_push')
+        
+    // DRUM BEAT
+    for i = 1 to 7
+        for j = 1 to 17
+            osc_server_method("/2/multitoggle/" + str(i) + "/" + str(j), "f", nil, 'handle_2_multitoggle')
+
+    // ALGO SWITCHER
+    for i = 1 to 7
+        osc_server_method("/3/rotary" + str(i), "f", nil, 'handle_3_rotary')
+
+    for i = 1 to 6
+        osc_server_method("/3/toggle" + str(i), "f", nil, 'handle_3_toggle')
+        
+    // PARAMETER CONTROLLER
+    for i = 1 to 13
+        osc_server_method("/2/push" + str(i), "f", nil, 'handle_2_push')
+        
+    for i = 1 to 6
+        osc_server_method("/3/fader" + str(i), "f", nil, 'handle_3_fader')
+    
+    for i = 1 to 5
+        osc_server_method("/3/push" + str(i), "f", nil, 'handle_3_push')
+        
