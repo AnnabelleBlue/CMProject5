@@ -23,7 +23,7 @@ def handle_8_push(path, isOn)
         note = int(path[7] + path[8])
     
     // Turns note on or off
-    if int(isOn) == 1
+    if isOn > 0.5
         midi_out.note_on(0x99, inst, vel)
     else
         midi_out.note_on(0x99, inst, 0)

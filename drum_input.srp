@@ -1,20 +1,16 @@
 class DrumData
-
-
-
-	var pattern1 = array(16)
-	var pattern2 = array(16)
-	var pattern3 = array(16)
-	var pattern4 = array(16)
-	var pattern5 = array(16)
-	var pattern6 = array(16)
-
-	for i = 0 to 16
-		pattern1[i] = 0
-		pattern2[i] = 0
-		pattern3[i] = 0
-		pattern4[i] = 0
-		pattern5[i] = 0
-		pattern6[i] = 0
-
-	var drum_patterns = [pattern1, pattern2, pattern3, pattern4, pattern5, pattern6]
+	var pattern1
+	var pattern2
+	var pattern3
+	
+    def init()
+        pattern1 = array(16)
+        pattern2 = array(16)
+        pattern3 = array(16)
+        
+        for i = 0 to 32
+            pattern1[i] = 0
+            pattern2[i] = 0
+            pattern3[i] = 0
+	
+	var drum_patterns = [pattern1, pattern2, pattern3]

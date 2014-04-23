@@ -9,6 +9,7 @@ require "noteheader"
 require "soloinput"
 require "musicobj"
 require "electronic"
+//require "drum_input.srp"
 
 ////////////////////////
 // Global definitions //
@@ -16,6 +17,7 @@ require "electronic"
 
 soloObj = SoloistData()
 musicObj = MusicData()
+//drumObj = DrumData()
 electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj)
 
 // Given a note, plays it. This schedules the eventual note_off as well.
@@ -43,13 +45,22 @@ def play_beat()
     // Schedule next event
     the_sched.cause(1, nil, 'play_beat')
     
+def timer_callback()
+    rtsched.poll(time_get())
+    
+def start()
+    rtsched.start_use()
+    play_beat()
+    rtsched.finish_use() 
+
 def schedule()
     sched_init()        // Creates vtsched and rtsched
     midi_out.start(0)   // Starts up midi
     rtsched.time_offset = time_get()
     vtsched.set_bpm(musicObj.tempo) // To match slider initial value
     
-    vtsched.cause(1, nil, 'play_beat')  // Starts playing
+
+//    vtsched.cause(1, nil, 'start')  // Starts playing
     sched_run()
 
 def sched_poll():
@@ -58,8 +69,8 @@ def sched_poll():
     
 def init()
     display "Device 1 Connect", osc_server_init("4401",t)
+    schedule()        
     add_server_methods()
-    schedule()
-        
+    
 init()
 
