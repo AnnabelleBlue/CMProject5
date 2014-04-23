@@ -2,8 +2,9 @@ require "sched"
 require "midi-io"
 require "strparse.srp"
 
-require "helpers.srp"
-require "variables.srp"
+require "helpers"
+require "handlers"
+require "variables"
 require "noteheader"
 require "soloinput"
 require "musicobj"
@@ -61,3 +62,4 @@ def init()
     schedule()
         
 init()
+
