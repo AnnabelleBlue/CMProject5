@@ -18,16 +18,22 @@ class ElectronicAlgorithm
 		if (((music.beat)%2) == 0)
 			x = random()
 			if (x < .3)
-				return Note(music.scale[0], 100, 6)// the root
+				return Note(music.scale[0], 100, 8)// the root
 			elif (x < .6)
-				return Note(music.scale[4], 100, 6) // the fifth
+				return Note(music.scale[4], 100, 8) // the fifth
 			elif (x < .9)
-				return Note(music.scale[2], 100, 6) // the third
+				return Note(music.scale[2], 100, 8) // the third
 			else
-				return Note(music.scale[6], 100, 6) // the seventh
+				return Note(music.scale[6], 100, 8) // the seventh
 		else
 			return Note(0, 0, 0) // "The empty note"
 
 	def bass()
-		return
-		
+		if (((music.beat)%8) == 0)
+			x = random()
+			if (x < .5)
+				return Note(music.scale[0]-24, 100, 16) // Root
+			else
+				return Note(music.scale[4]-24, 100, 16) // Fifth
+		else
+			return Note(0, 0, 0)

@@ -32,6 +32,8 @@ def drumbeat()
 def algorithm()
    	melody_note = electronicAlgorithm.melody()
    	play_note(melody_note)
+    bass_note = electronicAlgorithm.bass()
+    play_note(bass_note)
    	return
 
 // Plays one beat of one instrument

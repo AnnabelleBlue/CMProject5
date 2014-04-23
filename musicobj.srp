@@ -24,9 +24,11 @@ class MusicData
 		for i = 0 to len(activeNotesList)
 			currentNote = activeNotesList[i]
 			if (currentNote.pitch == note.pitch)
+				// Deletes note
 				activeNotesList.uninsert(i)
-				activeNotesList.insert(0, note)
 				midiout.note_on(instrument, note.pitch, 0)
+				// Adds note
+				activeNotesList.insert(0, note)
 				midiout.note_on(instrument, note.pitch, round(note.velocity*volume))
 				addedNoteBool = true
 		if (not addedNoteBool)
@@ -38,10 +40,18 @@ class MusicData
 		beat = beat + 1
 		if (len(activeNotesList) == 0)
 			return
-		for i = 0 to len(activeNotesList)
+		var i = 0
+		while (i < len(activeNotesList))
 			currentNote = activeNotesList[i]
 			currentNote.update()
+
 			if (currentNote.duration == 0)
 				// Turns off note
-				midiout.note_on(instrument, currentNote.pitch, 0)
 				activeNotesList.uninsert(i)
+				midiout.note_on(instrument, currentNote.pitch, 0)
+			i = i + 1
+		return
+
+
+
+
