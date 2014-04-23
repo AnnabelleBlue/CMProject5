@@ -1,3 +1,8 @@
+require "soloinput"
+require "musicobj"
+
+require "electronic"
+
 /////////
 // OSC //
 /////////
