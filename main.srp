@@ -1,15 +1,55 @@
+require "sched"
+require "midi-io"
+require "strparse.srp"
+
+
 /////////
 // OSC //
 /////////
 
 def handler(path, info)
-	// do something
+	display "Handling"
+    // do something
 
-// Create the actual server and methods
-osc_server_init("15323", true)
+def add_server_methods() 
+    osc_server_method("/1/push1", "f", nil, 'handler')
 
-osc_server_method("/1/push1", "f", nil, 'handler')
 
-/////////////////////////////
-// Scheduler and main loop //
-/////////////////////////////
+////////////////////////////////////////////
+//
+//              Scheduling
+//
+//////////////////////////////////////////// 
+
+
+// Plays one beat of one instrument
+def play_beat() 
+    drumbeat()
+    algorithm()
+    
+    // Schedule next event
+    the_sched.cause(1, nil, 'play_beat')
+
+   
+def schedule()
+    sched_init()        // Creates vtsched and rtsched
+    midi_out.start(0)   // Starts up midi
+    rtsched.time_offset = time_get()
+    vtsched.set_bpm(240) // To match slider initial value
+    
+    vtsched.cause(1, nil, 'play_beat')  // Starts playing
+    sched_run()
+
+def sched_poll():
+    rtsched.poll(time_get())
+    osc_server_poll()
+    
+def init()
+    display "Device 1 Connect", osc_server_init("4401",t)
+    add_server_methods()
+    schedule()
+        
+init()
+
+
+
