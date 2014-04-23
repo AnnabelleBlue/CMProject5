@@ -21,8 +21,9 @@ class ElectronicAlgorithm
 
 	def bass()
 		if ((currentBeat % 16) == 0)
-		x = random()
-		if (x < .5)
-			return Note(scale[0], 100, 16)// the root
-		else
-			return Note(scale[4]), 100, 16) // the fifth
+			x = random()
+			if (x < .5)
+				return Note(scale[0], 100, 16)// the root
+			else
+				return Note(scale[4], 100, 16) // the fifth
+

@@ -2,7 +2,7 @@
 // be written to by the OSC handlers, and read from the generation algorithms.
 // Mostly, the generation algorithms will look at notesList.
 
-class soloistData
+class SoloistData
 	var numNotesStored // (int) We store a certain number of notes to work with
 	var notesList // (list) LIFO, oldest notes replaced
 	var memoryTime // (int) After some time, we delete a note from notesList
@@ -24,7 +24,7 @@ class soloistData
  
 	def addNote(note)
 		if (len(notesList) > numNotesStored)
-			notesList.uninsert()
+			notesList.uninsert(len(notesList)-1)
 		note.soloistMemory = memoryTime
 		notesList.insert(note, 0)
 
@@ -38,4 +38,5 @@ class soloistData
 			if (currentNote.soloistMemory == 0)
 				deleteNote(i)
 			else
-				notesList[i].soloistMemory -= 1
+				notesList[i].soloistMemory = notesList[i].soloistMemory - 1
+

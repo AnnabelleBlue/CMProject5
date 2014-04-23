@@ -1,9 +1,11 @@
 require "sched"
 require "midi-io"
 require "strparse.srp"
-require "helpers.srp"
-require "variables.srp"
-require "handlers.srp"
+
+require "noteheader"
+require "soloinput"
+require "musicobj"
+require "electronic"
 
 
 ////////////////////////////////////////////
@@ -42,7 +44,6 @@ def sched_poll():
     
 def init()
     display "Device 1 Connect", osc_server_init("4401",t)
-    add_server_methods()
     schedule()
         
 init()
