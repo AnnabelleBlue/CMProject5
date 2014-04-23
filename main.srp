@@ -33,19 +33,17 @@ def drumbeat()
 def algorithm()
    	melody_note = electronicAlgorithm.melody()
    	play_note(melody_note)
+    bass_note = electronicAlgorithm.bass()
+    play_note(bass_note)
    	return
 
 // Plays one beat of one instrument
 def play_beat() 
     drumbeat()
-    //algorithm()
+    algorithm()
     musicObj.update(midi_out) // Increments the beat, stops notes,
     					// and other things.
     					// Should happen after the algo/drums play
-    
-    
-//    midi_out.note_on(0x99, inst, vel)
-    
     // Schedule next event
     the_sched.cause(1, nil, 'play_beat')
     
