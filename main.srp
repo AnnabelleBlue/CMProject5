@@ -1,18 +1,9 @@
 require "sched"
 require "midi-io"
 require "strparse.srp"
-
-
-/////////
-// OSC //
-/////////
-
-def handler(path, info)
-	display "Handling"
-    // do something
-
-def add_server_methods() 
-    osc_server_method("/1/push1", "f", nil, 'handler')
+require "helpers.srp"
+require "variables.srp"
+require "handlers.srp"
 
 
 ////////////////////////////////////////////
@@ -21,6 +12,12 @@ def add_server_methods()
 //
 //////////////////////////////////////////// 
 
+def drumbeat()
+    display "Drumbeat"
+    
+    
+def algorithm()
+    display "algorithm"
 
 // Plays one beat of one instrument
 def play_beat() 
@@ -29,8 +26,7 @@ def play_beat()
     
     // Schedule next event
     the_sched.cause(1, nil, 'play_beat')
-
-   
+    
 def schedule()
     sched_init()        // Creates vtsched and rtsched
     midi_out.start(0)   // Starts up midi
