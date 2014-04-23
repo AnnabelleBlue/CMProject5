@@ -1,20 +1,41 @@
+require "sched"
+require "midi-io"
+
 require "soloinput"
 require "musicobj"
 
-require "electronic"
+require "electronic" // noteheader required in here
+
+///////////////////
+// Globals setup //
+///////////////////
+
+globalMusicObj = MusicData()
+
+globalSoloInput = SoloistData()
+
+elecAlgorithm = ElectronicAlgorithm(globalMusicObj, globalSoloInput)
 
 /////////
 // OSC //
 /////////
 
-def handler(path, info)
+// def handler(path, info)
 	// do something
 
 // Create the actual server and methods
-osc_server_init("15323", true)
+// osc_server_init("15323", true)
 
-osc_server_method("/1/push1", "f", nil, 'handler')
+// osc_server_method("/1/push1", "f", nil, 'handler')
 
 /////////////////////////////
 // Scheduler and main loop //
 /////////////////////////////
+
+def playMusic(id)
+	print("hi!\n")
+	the_sched.cause(1, nil, 'playMusic', id)
+
+
+sched_init()
+rtsched.cause(1, nil, 'playMusic', 0)

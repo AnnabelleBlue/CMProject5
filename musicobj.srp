@@ -1,4 +1,4 @@
-class musicData
+class MusicData
 	var beat
 	var scale
 	var volume

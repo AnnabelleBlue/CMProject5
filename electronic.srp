@@ -1,11 +1,11 @@
-require noteheader
+require "noteheader"
 
 class ElectronicAlgorithm
 	var solo
 	var drum
 	var music
 	
-	def init(soloinputObj, druminputObj, musicObj)
+	def init(musicObj, soloinputObj)
 		currentBeat = musicObj.beat
 		currentScale = musicObj.scale
 
