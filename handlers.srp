@@ -1,4 +1,10 @@
 
+require "drum_input.srp"
+
+
+
+drumObj = DrumData()
+
 ///////////////////////////////////////
 //
 //              Handlers
@@ -32,7 +38,12 @@ def handle_8_push(path, isOn)
     
 // DRUM BEAT
 def handle_2_multitoggle(path, isOn)
-    display path, isOn
+    x = int(path[1])
+    y = int(path[1])
+    
+    if len(path) == 19
+        x = x * 10 + path[1]
+    display len(path), isOn
  
 // ALGO SWITCHER / PARAMETER CONTROLLER
 def handle_3_rotary(path, turn)

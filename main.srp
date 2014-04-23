@@ -9,7 +9,7 @@ require "noteheader"
 require "soloinput"
 require "musicobj"
 require "electronic"
-//require "drum_input.srp"
+require "drum_input.srp"
 
 
 ////////////////////////
