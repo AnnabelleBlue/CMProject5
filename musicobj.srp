@@ -1,0 +1,12 @@
+class MusicData
+	var beat
+	var scale
+	var volume
+	var	tempo
+	
+	def init()
+		beat = 0
+		// scale starts on c major
+		scale = [60, 62, 64, 65, 67, 69, 71, 72]
+		volume = .5
+		tempo = 2 // bps

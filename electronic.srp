@@ -1,0 +1,28 @@
+require "noteheader"
+
+class ElectronicAlgorithm
+	var solo
+	var drum
+	var music
+	
+	def init(musicObj, soloinputObj)
+		currentBeat = musicObj.beat
+		currentScale = musicObj.scale
+
+		solo = soloinputObj // Hopefully these are "aliases" to the given instance
+		drum = druminputObj
+		music = musicObj
+
+	def melody()
+		// For now, pick a random note from the notes list and return it
+		if (len(solo.notesList) != 0)
+			idx = round(random()*(len(solo.notesList) - 1))
+			return solo.notesList[idx]
+
+	def bass()
+		if ((currentBeat % 16) == 0)
+		x = random()
+		if (x < .5)
+			return Note(scale[0], 100, 16)// the root
+		else
+			return Note(scale[4]), 100, 16) // the fifth
