@@ -11,6 +11,7 @@ require "musicobj"
 require "electronic"
 //require "drum_input.srp"
 
+
 ////////////////////////
 // Global definitions //
 ////////////////////////
@@ -24,7 +25,7 @@ electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj)
 // The notesList in musicObj is used to determine when notes are to be
 // turned off.
 def play_note(note)
-	musicObj.addNote(note, midi_out)
+    musicObj.addNote(note, midi_out)
 
 def drumbeat()
     return
@@ -37,30 +38,35 @@ def algorithm()
 // Plays one beat of one instrument
 def play_beat() 
     drumbeat()
-    algorithm()
+    //algorithm()
     musicObj.update(midi_out) // Increments the beat, stops notes,
     					// and other things.
     					// Should happen after the algo/drums play
+    
+    
+//    midi_out.note_on(0x99, inst, vel)
     
     // Schedule next event
     the_sched.cause(1, nil, 'play_beat')
     
 def timer_callback()
     rtsched.poll(time_get())
-    
-def start()
-    rtsched.start_use()
+ 
+ 
+def start(rest ignore)
+    vtsched.start_use()
     play_beat()
-    rtsched.finish_use() 
-
+    vtsched.finish_use()
+ 
 def schedule()
-    sched_init()        // Creates vtsched and rtsched
     midi_out.start(0)   // Starts up midi
+    sched_init()        // Creates vtsched and rtsched
     rtsched.time_offset = time_get()
     vtsched.set_bpm(musicObj.tempo) // To match slider initial value
-    
+    osc_enabled = true
 
-//    vtsched.cause(1, nil, 'start')  // Starts playing
+    vtsched.cause(1, nil, 'start')  // Starts playing
+    
     sched_run()
 
 def sched_poll():
@@ -69,8 +75,8 @@ def sched_poll():
     
 def init()
     display "Device 1 Connect", osc_server_init("4401",t)
-    schedule()        
     add_server_methods()
+    schedule()        
     
 init()
 

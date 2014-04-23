@@ -1,15 +1,11 @@
 
-require "helpers.srp"
-require "variables.srp"
-
-
 ///////////////////////////////////////
 //
 //              Handlers
 //
 ///////////////////////////////////////
-inst = 25
-vel = 44
+inst = 69
+vel = 110
 
 // SOLOIST
 def handle_8_push(path, isOn)
@@ -24,10 +20,14 @@ def handle_8_push(path, isOn)
     
     // Turns note on or off
     if isOn > 0.5
-        midi_out.note_on(0x99, inst, vel)
+    
+        vtsched.start_use()
+        midi_out.note_on(0, inst, vel)
+        vtsched.finish_use()
     else
-        midi_out.note_on(0x99, inst, 0)
-
+        vtsched.start_use()
+        midi_out.note_on(0, inst, 0)
+        vtsched.finish_use()
 
     
 // DRUM BEAT
