@@ -20,6 +20,7 @@ class Note
 		if (onOff)
 			onOff = false
 		if (duration > 0)
-			duration -= 1
+			duration = duration - 1
 		if (soloistMemory > 0)
-			soloistMemory -= 1
+			soloistMemory = duration - 1
+

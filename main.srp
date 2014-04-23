@@ -1,9 +1,11 @@
 require "sched"
 require "midi-io"
 require "strparse.srp"
-require "helpers.srp"
-require "variables.srp"
-require "handlers.srp"
+
+require "noteheader"
+require "soloinput"
+require "musicobj"
+require "electronic"
 
 
 ////////////////////////////////////////////
@@ -41,10 +43,37 @@ def sched_poll():
     
 def init()
     display "Device 1 Connect", osc_server_init("4401",t)
-    add_server_methods()
     schedule()
         
 init()
 
 
+<<<<<<< HEAD
+osc_server_method("/1/push1", "f", nil, 'handler')
+osc_server_method("/1/push2", "f", nil, 'handler')
+osc_server_method("/1/push3", "f", nil, 'handler')
+osc_server_method("/1/push4", "f", nil, 'handler')
+osc_server_method("/1/push5", "f", nil, 'handler')
+osc_server_method("/1/push6", "f", nil, 'handler')
+osc_server_method("/1/push7", "f", nil, 'handler')
+osc_server_method("/1/push8", "f", nil, 'handler')
+osc_server_method("/1/push9", "f", nil, 'handler')
+osc_server_method("/1/push10", "f", nil, 'handler')
+osc_server_method("/1/push11", "f", nil, 'handler')
+osc_server_method("/1/push12", "f", nil, 'handler')
+
+
+def 
+
+
+
+
+
+
+
+
+
+
+=======
+>>>>>>> b8901140cc36044bf1242c86ba82fce660f77ef3
 
