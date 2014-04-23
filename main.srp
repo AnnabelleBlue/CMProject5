@@ -7,24 +7,35 @@ require "soloinput"
 require "musicobj"
 require "electronic"
 
+////////////////////////
+// Global definitions //
+////////////////////////
 
-////////////////////////////////////////////
-//
-//              Scheduling
-//
-//////////////////////////////////////////// 
+soloObj = SoloistData()
+musicObj = MusicData()
+electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj)
+
+// Given a note, plays it. This schedules the eventual note_off as well.
+// The notesList in musicObj is used to determine when notes are to be
+// turned off.
+def play_note(note)
+	musicObj.addNote(note, midi_out)
 
 def drumbeat()
-    display "Drumbeat"
-    
+    return
     
 def algorithm()
-    display "algorithm"
+   	melody_note = electronicAlgorithm.melody()
+   	play_note(melody_note)
+   	return
 
 // Plays one beat of one instrument
 def play_beat() 
     drumbeat()
     algorithm()
+    musicObj.update(midi_out) // Increments the beat, stops notes,
+    					// and other things.
+    					// Should happen after the algo/drums play
     
     // Schedule next event
     the_sched.cause(1, nil, 'play_beat')
@@ -44,6 +55,7 @@ def sched_poll():
     
 def init()
     display "Device 1 Connect", osc_server_init("4401",t)
+    midi_out.start(0)
     schedule()
         
 init()

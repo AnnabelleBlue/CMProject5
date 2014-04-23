@@ -3,10 +3,45 @@ class MusicData
 	var scale
 	var volume
 	var	tempo
+	var instrument
+	var activeNotesList
+
 	
 	def init()
 		beat = 0
 		// scale starts on c major
 		scale = [60, 62, 64, 65, 67, 69, 71, 72]
-		volume = .5
-		tempo = 2 // bps
+		volume = 1
+		tempo = 240 // bpm
+		instrument = 0
+		activeNotesList = []
+
+
+	def addNote(note, midiout)
+		if (note.pitch == 0)
+			return
+		var addedNoteBool = false
+		for i = 0 to len(activeNotesList)
+			currentNote = activeNotesList[i]
+			if (currentNote.pitch == note.pitch)
+				activeNotesList.uninsert(i)
+				activeNotesList.insert(0, note)
+				midiout.note_on(instrument, note.pitch, 0)
+				midiout.note_on(instrument, note.pitch, round(note.velocity*volume))
+				addedNoteBool = true
+		if (not addedNoteBool)
+			activeNotesList.insert(0, note)
+			midiout.note_on(instrument, note.pitch, round(note.velocity*volume))
+
+
+	def update(midiout)
+		beat = beat + 1
+		if (len(activeNotesList) == 0)
+			return
+		for i = 0 to len(activeNotesList)
+			currentNote = activeNotesList[i]
+			currentNote.update()
+			if (currentNote.duration == 0)
+				// Turns off note
+				midiout.note_on(instrument, currentNote.pitch, 0)
+				activeNotesList.uninsert(i)

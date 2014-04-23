@@ -26,7 +26,7 @@ class SoloistData
 		if (len(notesList) > numNotesStored)
 			notesList.uninsert(len(notesList)-1)
 		note.soloistMemory = memoryTime
-		notesList.insert(note, 0)
+		notesList.insert(0, note)
 
 	// Deletes note at the nth index
 	def deleteNote(n)
