@@ -4,12 +4,23 @@
 // normally included in MIDI messages.
 
 class Note
+	var onOff
 	var pitch
 	var duration
 	var velocity
 	var soloistMemory // This is so we know when to lose the note from memory
 
 	def init(argpitch, argvelocity, argduration)
+		onOff = true
 		pitch = argpitch
 		velocity = argvelocity
 		duration = argduration
+
+	def update()
+		if (onOff)
+			onOff = false
+		if (duration > 0)
+			duration = duration - 1
+		if (soloistMemory > 0)
+			soloistMemory = duration - 1
+

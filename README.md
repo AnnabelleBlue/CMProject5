@@ -3,7 +3,7 @@ Contents
 		noteheader.srp
 		soloinput.srp
 		druminput.srp
-		masterdata.srp
+		musicobj.srp
 
 	Algorithm files
 		electronic.srp
