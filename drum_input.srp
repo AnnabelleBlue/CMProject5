@@ -3,7 +3,8 @@ class DrumData
     var pattern2
     var pattern3
     var drum_patterns
-	
+    var drums
+    
     def init()
         pattern1 = array(32)
         pattern2 = array(32)
@@ -15,7 +16,7 @@ class DrumData
             pattern3[i] = 0
 	
         drum_patterns = [pattern1, pattern2, pattern3]
-
+        drums = [44, 38, 36]
 
     def hi()
         return

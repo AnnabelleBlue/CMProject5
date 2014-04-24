@@ -1,8 +1,19 @@
 
 require "drum_input.srp"
 
+require "noteheader"
+require "soloinput"
+require "musicobj"
+require "electronic"
 
 
+////////////////////////
+// Global definitions //
+////////////////////////
+
+soloObj = SoloistData()
+musicObj = MusicData()
+electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj)
 drumObj = DrumData()
 
 ///////////////////////////////////////
@@ -10,7 +21,7 @@ drumObj = DrumData()
 //              Handlers
 //
 ///////////////////////////////////////
-inst = 69
+inst = 0
 vel = 110
 
 // SOLOIST
@@ -24,16 +35,21 @@ def handle_8_push(path, isOn)
     if len(path) == 9
         note = int(path[7] + path[8])
     
+    note = note + 59
+    
     // Turns note on or off
     if isOn > 0.5
     
         vtsched.start_use()
-        midi_out.note_on(0, inst, vel)
+        midi_out.note_on(inst, note, vel)
         vtsched.finish_use()
     else
         vtsched.start_use()
-        midi_out.note_on(0, inst, 0)
+        midi_out.note_on(inst, note, 0)
         vtsched.finish_use()
+        
+    // Adds note to algorithm input
+    soloObj.addNote(Note(note, vel, 1))
 
     
 // DRUM BEAT

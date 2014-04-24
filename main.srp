@@ -5,21 +5,8 @@ require "strparse.srp"
 require "helpers"
 require "handlers"
 require "variables"
-require "noteheader"
-require "soloinput"
-require "musicobj"
-require "electronic"
-require "drum_input.srp"
 
 
-////////////////////////
-// Global definitions //
-////////////////////////
-
-soloObj = SoloistData()
-musicObj = MusicData()
-//drumObj = DrumData()
-electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj)
 
 // Given a note, plays it. This schedules the eventual note_off as well.
 // The notesList in musicObj is used to determine when notes are to be
@@ -27,7 +14,7 @@ electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj)
 def play_note(note)
     musicObj.addNote(note, midi_out)
 
-def drumbeat()
+def drumbeat(beat)    
     return
     
 def algorithm()
@@ -36,18 +23,18 @@ def algorithm()
    	return
 
 // Plays one beat of one instrument
-def play_beat() 
-    drumbeat()
+def play_beat(beat) 
+    drumbeat(beat)
     //algorithm()
     musicObj.update(midi_out) // Increments the beat, stops notes,
     					// and other things.
     					// Should happen after the algo/drums play
     
-    
-//    midi_out.note_on(0x99, inst, vel)
+    if beat == 31
+        beat = 0
     
     // Schedule next event
-    the_sched.cause(1, nil, 'play_beat')
+    the_sched.cause(1, nil, 'play_beat', beat)
     
 def timer_callback()
     rtsched.poll(time_get())
@@ -55,7 +42,7 @@ def timer_callback()
  
 def start(rest ignore)
     vtsched.start_use()
-    play_beat()
+    play_beat(0)
     vtsched.finish_use()
  
 def schedule()
