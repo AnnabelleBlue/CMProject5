@@ -15,7 +15,12 @@ def play_note(note)
     musicObj.addNote(note, midi_out)
 
 def drumbeat(beat)    
-    return
+    for i = 0 to 3
+        midi_out.note_on(0x99, drumObj.drums[i], 0)
+        
+        if drumObj.drum_patterns[i][beat] == 1
+            midi_out.note_on(0x99, drumObj.drums[i], 80)
+            
     
 def algorithm()
    	melody_note = electronicAlgorithm.melody()
@@ -34,7 +39,7 @@ def play_beat(beat)
         beat = 0
     
     // Schedule next event
-    the_sched.cause(1, nil, 'play_beat', beat)
+    the_sched.cause(1, nil, 'play_beat', beat + 1)
     
 def timer_callback()
     rtsched.poll(time_get())
