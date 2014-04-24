@@ -10,23 +10,14 @@ class ElectronicAlgorithm
 		solo = soloinputObj // Hopefully these are "aliases" to the given instance
 		music = musicObj
 
+
 	def melody()
-		 For now, pick a random note from the notes list and return it
-		if (len(solo.notesList) != 0)
-		 	idx = round(random()*(len(solo.notesList) - 1))
+		// For now, pick a random note from the notes list and return it
+		if ((len(solo.notesList)) != 0)
+			var idx = round(random()*(len(solo.notesList) - 1))
 			return solo.notesList[idx]
-		//if (((music.beat)%2) == 0)
-		//	x = random()
-		//	if (x < .3)
-		//		return Note(music.scale[0], 100, 8)// the root
-		//	elif (x < .6)
-		//		return Note(music.scale[4], 100, 8) // the fifth
-		//	elif (x < .9)
-		//		return Note(music.scale[2], 100, 8) // the third
-		//	else
-		//		return Note(music.scale[6], 100, 8) // the seventh
-		//else
-		//	return Note(0, 0, 0) // "The empty note"
+		return Note(0, 0, 0)
+
 
 	def bass()
 		if (((music.beat)%8) == 0)
