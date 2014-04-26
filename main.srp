@@ -30,7 +30,7 @@ def algorithm()
 // Plays one beat of one instrument
 def play_beat(beat) 
     drumbeat(beat)
-    //algorithm()
+    algorithm()
     musicObj.update(midi_out) // Increments the beat, stops notes,
     					// and other things.
     					// Should happen after the algo/drums play
