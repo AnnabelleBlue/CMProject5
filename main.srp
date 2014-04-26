@@ -23,13 +23,8 @@ def drumbeat(beat)
             
     
 def algorithm()
-    firstNoteDurationMultiplier = 1
-   	melody_note = electronicAlgorithm.melody(firstNoteDurationMultiplier)
+   	melody_note = electronicAlgorithm.melody()
    	play_note(melody_note)
-    if (random() > .7)
-        secondNoteDurationMultiplier = 2
-        melody_note_2 = electronicAlgorithm.melody(secondNoteDurationMultiplier)
-        play_note(melody_note_2)
     bass_note = electronicAlgorithm.bass()
     play_note(bass_note)
    	return
