@@ -20,11 +20,11 @@ class DrumData
         drums = [44, 38, 36]
 
     def getWeight(beat)
-        var i = ((int)beat)%32)
-        weightMax = 1
-        for var j = 0 to 32
-            var m = ((int)pattern1[j] + 2*(int)pattern2[j] + 6*(int)pattern3[j])> weightMax
+        var i = (beat%32)
+        weightMax = 0.001
+        for j = 0 to 32
+            var m = (1.0*pattern1[j] + 2.0*pattern2[j] + 6.0*pattern3[j])
             if(m > weightMax)
                 weightMax = m
-        var weight = ((int)pattern1[i] + 2*(int)pattern2[i] + 6*(int)pattern3[i])/ weightMax        
+        var weight = (1.0*pattern1[i] + 2.0*pattern2[i] + 6.0*pattern3[i])/weightMax
         return weight

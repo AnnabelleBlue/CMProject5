@@ -13,8 +13,8 @@ require "electronic"
 
 soloObj = SoloistData()
 musicObj = MusicData()
-electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj)
 drumObj = DrumData()
+electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj, drumObj)
 
 ///////////////////////////////////////
 //
