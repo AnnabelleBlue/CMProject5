@@ -38,14 +38,9 @@ def handle_8_push(path, isOn)
     
     // Turns note on or off
     if isOn > 0.5
-        display musicObj.instrument
-        vtsched.start_use()
-        midi_out.note_on(144, note, vel)
-        vtsched.finish_use()
+        musicObj.play_note = note
     else
-        vtsched.start_use()
-        midi_out.note_on(144, note, 0)
-        vtsched.finish_use()
+        musicObj.note_off = true
         
     // Adds note to algorithm input
     soloObj.addNote(Note(note, vel, 4))

@@ -6,8 +6,7 @@ class MusicData
     var instrument
     var inst_list
     var activeNotesList
-    var key
-    var isMaj
+    var note 
     
     def init()
         beat = 0
@@ -18,8 +17,7 @@ class MusicData
         inst_list = [11, 114, 95, 97, 12, 76, 8, 7]
         instrument = 11
         activeNotesList = []
-        key = 'C'
-        isMaj = true
+        note = 0
 
     def addNote(note, midiout)
         if (note.pitch == 0)
