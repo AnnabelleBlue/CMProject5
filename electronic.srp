@@ -23,11 +23,12 @@ class ElectronicAlgorithm
 
 
 	def bass()
-		if (((music.beat)%8) == 0)
-			x = random()
-			if (x < .5)
-				return Note(music.scale[0]-24, 100, 16) // Root
-			else
-				return Note(music.scale[4]-24, 100, 16) // Fifth
-		else
-			return Note(0, 0, 0)
+		// Still random
+		if ((len(solo.notesList)) != 0)
+			if (random() > drum.getWeight(music.beat))
+				var idx = round(random()*(len(solo.notesList) - 1))
+				currentNote = solo.notesList[idx]
+				currentNote.pitch = currentNote.pitch - 24
+				currentNote.duration = int(16.0*(drum.getWeight(music.beat)) + .5)
+				return currentNote
+		return Note(0, 0, 0)
