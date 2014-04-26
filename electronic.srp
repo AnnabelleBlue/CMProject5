@@ -5,17 +5,20 @@ class ElectronicAlgorithm
 	var drum
 	var music
 	
-	def init(musicObj, soloinputObj)
+	def init(musicObj, soloinputObj, drumObj)
 
 		solo = soloinputObj // Hopefully these are "aliases" to the given instance
-		music = musicObj
-
+		music = musicObj	// UPDATE: THEY ARE
+		drum = drumObj
 
 	def melody()
-		// For now, pick a random note from the notes list and return it
+		// Random
 		if ((len(solo.notesList)) != 0)
-			var idx = round(random()*(len(solo.notesList) - 1))
-			return solo.notesList[idx]
+			if (random() < drum.getWeight(music.beat))
+				var idx = round(random()*(len(solo.notesList) - 1))
+				currentNote = solo.notesList[idx]
+				currentNote.duration = int(16.0*(1.0-drum.getWeight(music.beat)) + .5)
+				return currentNote
 		return Note(0, 0, 0)
 
 
