@@ -29,10 +29,21 @@ def algorithm()
     play_note(bass_note)
    	return
 
+def solo()
+    if musicObj.note_off
+        midi_out.note_on(musicObj.instrument, musicObj.play_note, 0)
+        musicObj.note_off = 0
+        
+    if musicObj.play_note
+        midi_out.note_on(musicObj.instrument, musicObj.play_note, 100)
+        musicObj.play_note = 0
+        
+
 // Plays one beat of one instrument
 def play_beat(beat) 
     drumbeat(beat)
     algorithm()
+    solo()
     musicObj.update(midi_out) // Increments the beat, stops notes,
     					// and other things.
     					// Should happen after the algo/drums play
