@@ -4,6 +4,7 @@ class DrumData
     var pattern3
     var drum_patterns
     var drums
+    var weightMax
     
     def init()
         pattern1 = array(32)
@@ -18,5 +19,12 @@ class DrumData
         drum_patterns = [pattern1, pattern2, pattern3]
         drums = [44, 38, 36]
 
-    def hi()
-        return
+    def getWeight(beat)
+        var i = ((int)beat)%32)
+        weightMax = 1
+        for var j = 0 to 32
+            var m = ((int)pattern1[j] + 2*(int)pattern2[j] + 6*(int)pattern3[j])> weightMax
+            if(m > weightMax)
+                weightMax = m
+        var weight = ((int)pattern1[i] + 2*(int)pattern2[i] + 6*(int)pattern3[i])/ weightMax        
+        return weight
