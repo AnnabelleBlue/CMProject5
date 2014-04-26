@@ -21,8 +21,7 @@ electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj, drumObj)
 //              Handlers
 //
 ///////////////////////////////////////
-inst = 0
-vel = 110
+vel = 80
 
 // SOLOIST
 def handle_8_push(path, isOn)
@@ -39,17 +38,17 @@ def handle_8_push(path, isOn)
     
     // Turns note on or off
     if isOn > 0.5
-    
+        display musicObj.instrument
         vtsched.start_use()
-        midi_out.note_on(inst, note, vel)
+        midi_out.note_on(144, note, vel)
         vtsched.finish_use()
     else
         vtsched.start_use()
-        midi_out.note_on(inst, note, 0)
+        midi_out.note_on(144, note, 0)
         vtsched.finish_use()
         
     // Adds note to algorithm input
-    soloObj.addNote(Note(note, vel, 1))
+    soloObj.addNote(Note(note, vel, 4))
 
     
 // DRUM BEAT
@@ -65,20 +64,39 @@ def handle_2_multitoggle(path, isOn)
         offset = 16
     
     drumObj.drum_patterns[int((6-y)/2)][x - 1 + offset] = int(isOn)  
-    display drumObj.drum_patterns
  
 // ALGO SWITCHER / PARAMETER CONTROLLER
 def handle_3_rotary(path, turn)
     display path, turn
     
+toggles = [0,0,0]
 // ALGO SWITCHER / PARAMETER CONTROLLER
 def handle_3_toggle(path, isOn)
+    var device = osc_server_reply()
+    var flip = int(isOn)
+    var index = int(path[9]) - 1
+    
+    if device == 0
+        toggles[index] = flip
+        
+        instrument = musicObj.inst_list[toggles[0] + (toggles[1] * 2) + (toggles[2] * 4)]
+        vtsched.start_use()
+        midi_out.program(0, instrument)
+        vtsched.finish_use()
+        
+        musicObj.instrument = instrument
+        display "DEVICE 0", toggles, musicObj.instrument
+    else
+        display "DEVICE 1", path, isOn
+
     display path, isOn
         
 // PARAMETER CONTROLLER
+// Change Key
 def handle_2_push(path, isOn)
     display path, isOn
     
+// Change Major / Minor
 // PARAMETER CONTROLLER
 def handle_3_push(path, isOn)
     display path, isOn
