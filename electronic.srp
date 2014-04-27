@@ -39,6 +39,7 @@ class ElectronicAlgorithm
         while (newPitch == lastBassNotePlayed)
             x = random() // Random variable for cases
             if (x <= .5)
+                display music.getPitch(0)
                 newPitch = music.getPitch(0) - 24 // Root
             elif (x <= .7)
                 newPitch = music.getPitch(2) - 24 // Third

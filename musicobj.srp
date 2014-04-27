@@ -64,9 +64,9 @@ class MusicData
         
     def getPitch(index)
         if isMaj
-            return maj_pitch[index] + root
+            return maj_scale[index] + root
         else
-            return min_pitch[index] + root
+            return min_scale[index] + root
 
 
 

@@ -67,7 +67,7 @@ def handle_3_rotary(path, turn)
     var device = osc_server_reply()
     var index = int(path[9])
     
-    if device == 0
+    if device == 1
         if index == 1
             algoObj.bass_vel = int(turn * 127)
         elif index == 1
@@ -107,7 +107,8 @@ def handle_3_toggle(path, isOn)
 // PARAMETER CONTROLLER
 // Change Key
 def handle_2_push(path, isOn)
-    display path, isOn
+    musicObj.root = 59 + int(path[7])
+    display musicObj.root
     
 // Change Major / Minor
 // PARAMETER CONTROLLER
