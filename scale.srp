@@ -53,6 +53,7 @@ class ScaleAlgorithm
 				position = getPositionInScale(note)
 				arpeg = [position]
 				lastNotePlayed = currentNote
+				currentNum = currentNum + 1
 				return currentNote
 		else
 			currentNote = nextNoteInScale(lastNotePlayed)
