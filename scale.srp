@@ -1,0 +1,66 @@
+require "noteheader"
+
+// This algorithm will only play melodies, no bass.
+class ScaleAlgorithm
+	var solo
+	var drum
+	var music
+	var lastNotePlayed
+	var scaleLength
+	var currentNum
+	var arpeg 
+
+	def init(musicObj, soloObj, drumObj)
+		solo = soloObj
+		drum = drumObj
+		music = musicObj
+		scaleLength = 8
+		arpeg = []
+		currentNum = 0
+		numberOfTimesGoneNextScale = 0
+
+	def getPositionInScale(note)
+		var pitch = note.pitch
+		for i=0 to 8
+			if (pitch == music.getPitch(i))
+				return i
+		return false
+
+	def nextNoteInScale(note)
+		// If the note is not in the scale
+		if (getPositionInScale(note) == false)
+			numberOfTimesGoneNextScale = 0
+			currentNum = 0
+			return Note(0,0,0)
+		else
+			// If we're on the last note in the scale,
+			if (getPositionInScale == 7)
+				// We increase this by 12 every time we move up to the next scale
+				numberOfTimesGoneNextScale = numberOfTimesGoneNextScale + 1
+				note.pitch = numberOfTimesGoneNextScale*12 + note.pitch - getPitch(7)
+				return note
+			else
+				note.pitch = numberOfTimesGoneNextScale*12 + note.pitch - getPitch(i) + getPitch(i+1)
+				return note
+
+
+
+	def melody()
+		if (currentNum == 0)
+			if (len(solo.notesList) != 0)
+				var idx = round(random()*(len(solo.notesList) - 1))
+				currentNote = solo.notesList[idx]
+				position = getPositionInScale(note)
+				arpeg = [position]
+				lastNotePlayed = currentNote
+				return currentNote
+		else
+			currentNote = nextNoteInScale(lastNotePlayed)
+			lastNotePlayed = currentNote
+			currentNum = currentNum + 1
+			if (currentNum >= scaleLength)
+				currentNum = 0
+			return currentNote
+
+
+

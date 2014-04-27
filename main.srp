@@ -31,6 +31,8 @@ def algorithm()
         play_note(melody_note_2)
     bass_note = electronicAlgorithm.bass()
     play_note(bass_note)
+    scale_note = scaleAlgorithm.melody()
+    play_note(scale_note)
    	return
 
 def solo()
