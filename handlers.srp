@@ -115,6 +115,9 @@ def handle_2_push(path, isOn)
 def handle_3_push(path, isOn)
     display path, isOn
 
+def handle_3_fader(path, val)
+    display path,val
+
 
 
 def handle_3_push(path, isOn)
