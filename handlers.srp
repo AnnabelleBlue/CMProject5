@@ -97,9 +97,14 @@ def handle_3_push(path, isOn)
     display path, isOn
     
 // PARAMETER CONTROLLER
-def handle_3_fader(path, per)
-    display path, per
-    
+def handle_2_push
+
+def handle_3_fader(path, tempo)
+    display path, tempo
+
+def handle_3_push(path, isOn)
+    display path,isOn
+        
 ///////////////////////////////////////
 //
 //          Server Methods
