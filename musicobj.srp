@@ -33,11 +33,11 @@ class MusicData
                 midiout.note_on(144, note.pitch, 0)
                 // Adds note
                 activeNotesList.insert(0, note)
-                midiout.note_on(144, note.pitch, 100)//round(note.velocity*volume))
+                midiout.note_on(144, note.pitch, note.velocity)//round(note.velocity*volume))
                 addedNoteBool = true
         if (not addedNoteBool)
             activeNotesList.insert(0, note)
-            midiout.note_on(144, note.pitch, 100)//round(note.velocity*volume))
+            midiout.note_on(144, note.pitch, note.velocity)//round(note.velocity*volume))
 
 
     def update(midiout)
