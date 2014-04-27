@@ -1,7 +1,14 @@
 class AlgoData
     var bass_vel
     var treble_vel
+    var arpeggio1On
+    var arpeggio2On
+    var electronicOn
+    
     
     def init()
         bass_vel = 0
         treble_vel = 0
+        arpeggio1On = 0
+        arpeggio2On = 0
+        electronicOn = 0

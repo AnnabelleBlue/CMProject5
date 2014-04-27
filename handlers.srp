@@ -94,6 +94,12 @@ def handle_3_toggle(path, isOn)
         musicObj.instrument = instrument
         display "DEVICE 0", toggles, musicObj.instrument
     else
+        if index == 0
+            algoObj.arpeggio1On = flip
+        elif index == 1
+            algoObj.arpeggio2On = flip
+        else 
+            algoObj.electronicOn = flip
         display "DEVICE 1", path, isOn
 
     display path, isOn
