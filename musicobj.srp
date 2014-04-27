@@ -2,7 +2,7 @@ class MusicData
     var beat
     var maj_scale
     var min_scale
-    var offset
+    var root
     var isMaj
     var volume
     var tempo
@@ -16,7 +16,7 @@ class MusicData
         beat = 0
         // scale starts on c major
         maj_scale = [0, 2, 4, 5, 7, 9, 11, 12]
-        offset = 60
+        root = 60
         isMaj = true
         min_scale = []
         volume = 1
@@ -64,9 +64,9 @@ class MusicData
         
     def getPitch(index)
         if isMaj
-            return maj_pitch[index] + offset
+            return maj_pitch[index] + root
         else
-            return min_pitch[index] + offset
+            return min_pitch[index] + root
 
 
 
