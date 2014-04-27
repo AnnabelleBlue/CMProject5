@@ -28,17 +28,16 @@ class ElectronicAlgorithm
 		// Still random
 		if ((len(solo.notesList)) != 0)
 			var newPitch = lastBassNotePlayed
-			x = random() // Random variable for cases
-			if (x <= .5)
-				newPitch = music.scale[0] - 24 // Root
-			elif (x <= .7)
-				newPitch = music.scale[2] - 24 // Third
-			elif (x <= .9)
-				newPitch = music.scale[4] - 24 // Fifth
-			else 
-				newPitch = music.scale[6] - 24 // Seventh
-			if (newPitch == lastBassNotePlayed)
-				return Note(0,0,0) // Don't play if the same note
+			while (newPitch == lastBassNotePlayed)
+				x = random() // Random variable for cases
+				if (x <= .5)
+					newPitch = music.scale[0] - 24 // Root
+				elif (x <= .7)
+					newPitch = music.scale[2] - 24 // Third
+				elif (x <= .9)
+					newPitch = music.scale[4] - 24 // Fifth
+				else 
+					newPitch = music.scale[6] - 24 // Seventh
 			if ((music.beat%16) == 0) // If it's the beginning of a bar
 				return Note(newPitch, 16, 100)
 			elif ((music.beat%16) == 14) // If it's right before a new bar
