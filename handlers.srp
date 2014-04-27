@@ -134,6 +134,7 @@ def handle_3_push(path, isOn)
         musicObj.isMaj = 1
     display musicObj.isMaj
 
+
         
 ///////////////////////////////////////
 //

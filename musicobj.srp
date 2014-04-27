@@ -61,6 +61,11 @@ class MusicData
                 midiout.note_on(144, currentNote.pitch, 0)
             i = i + 1
         return
+
+    def setTempo(val)
+    	tempo = val
+    	vtsched.set_bpm(val)
+    	display tempo
         
     def getPitch(index)
         if isMaj
