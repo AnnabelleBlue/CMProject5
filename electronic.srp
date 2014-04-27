@@ -53,7 +53,8 @@ class ElectronicAlgorithm
                 return Note(newPitch, algoObj.bass_vel, 4) // Play for shorter 
             else
                 return Note(0,0,0) // Or don't play
-        else return Note(0,0,0)
+        return Note(0,0,0)
+
         // Here we could have an else statement which gives chances
         // to play the bass on a non-important beat - sync with bass drum?
         // I remember a while back dannenberg said that sounded good.
