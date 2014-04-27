@@ -17,7 +17,7 @@ def drumbeat()
         midi_out.note_on(0x99, drumObj.drums[i], 0)
         
         if drumObj.drum_patterns[i][musicObj.beat%32] == 1
-            midi_out.note_on(0x99, drumObj.drums[i], 80)
+            midi_out.note_on(0x99, drumObj.drums[i], drumObj.velocity)
             
     
 def algorithm()

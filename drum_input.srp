@@ -4,6 +4,7 @@ class DrumData
     var pattern3
     var drum_patterns
     var drums
+    var velocity
     var weightMax
     
     def init()
@@ -18,7 +19,8 @@ class DrumData
 	
         drum_patterns = [pattern1, pattern2, pattern3]
         drums = [44, 38, 36]
-
+        velocity = 63
+        
     def getWeight(beat)
         var i = (beat%32)
         weightMax = 0.001

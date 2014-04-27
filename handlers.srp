@@ -16,7 +16,7 @@ soloObj = SoloistData()
 musicObj = MusicData()
 drumObj = DrumData()
 algoObj = AlgoData()
-electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj, drumObj)
+electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj, drumObj, algoObj)
 algo_device = 1
 param_device = 0
 
@@ -112,6 +112,7 @@ def handle_3_toggle(path, isOn)
 def handle_2_push(path, isOn)
     musicObj.root = 59 + int(path[7])
     display musicObj.root
+    soloObj.notesList = []
     
 // PARAMETER CONTROLLER
 // Change tempo/velocity
@@ -122,6 +123,8 @@ def handle_3_fader(path, val)
         return
     if index == 2
         soloObj.velocity = int(127 * val)
+    if index == 3
+        drumObj.velocity = int(127 * val)
     display path, val
 
 // Change Major / Minor

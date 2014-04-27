@@ -4,13 +4,15 @@ class ElectronicAlgorithm
     var solo
     var drum
     var music
+    var algo
     var lastBassNotePlayed
     
-    def init(musicObj, soloinputObj, drumObj)
+    def init(musicObj, soloinputObj, drumObj, algoObj)
 
         solo = soloinputObj // Hopefully these are "aliases" to the given instance
         music = musicObj    // UPDATE: THEY ARE
         drum = drumObj
+        algo = algoObj
         var lastBassNotePlayed = music.getPitch(0) - 1
 
     // Main idea would be to make this more "sticky", as in it will play similar melodies
@@ -24,7 +26,7 @@ class ElectronicAlgorithm
                 var idx = round(random()*(len(solo.notesList) - 1))
                 currentNote = solo.notesList[idx]
                 currentNote.duration = int(16.0*(1.0-drum.getWeight(music.beat)) + .5)*durationMultiplier
-                currentNote.velocity = 100
+                currentNote.velocity = algo.treble_vel
                 return currentNote
         return Note(0, 0, 0)
 
