@@ -1,58 +1,59 @@
 require "noteheader"
 
 class ElectronicAlgorithm
-	var solo
-	var drum
-	var music
-	var lastBassNotePlayed
-	
-	def init(musicObj, soloinputObj, drumObj)
+    var solo
+    var drum
+    var music
+    var lastBassNotePlayed
+    
+    def init(musicObj, soloinputObj, drumObj)
 
-		solo = soloinputObj // Hopefully these are "aliases" to the given instance
-		music = musicObj	// UPDATE: THEY ARE
-		drum = drumObj
-		var lastBassNotePlayed = music.scale[0] - 1
+        solo = soloinputObj // Hopefully these are "aliases" to the given instance
+        music = musicObj    // UPDATE: THEY ARE
+        drum = drumObj
+        var lastBassNotePlayed = music.scale[0] - 1
 
-	// Main idea would be to make this more "sticky", as in it will play similar melodies
-	// over and over and "evolve" them over time. One thing we could do is run through our
-	// solo.notesList in backwards and forwards motions starting at certain indices.
-	// Don't entirely know. We should also play with the soloist input parameters. 
-	def melody(durationMultiplier)
-		// Random
-		if ((len(solo.notesList)) != 0)
-			if (random() < drum.getWeight(music.beat))
-				var idx = round(random()*(len(solo.notesList) - 1))
-				currentNote = solo.notesList[idx]
-				currentNote.duration = int(16.0*(1.0-drum.getWeight(music.beat)) + .5)*durationMultiplier
-				return currentNote
-		return Note(0, 0, 0)
+    // Main idea would be to make this more "sticky", as in it will play similar melodies
+    // over and over and "evolve" them over time. One thing we could do is run through our
+    // solo.notesList in backwards and forwards motions starting at certain indices.
+    // Don't entirely know. We should also play with the soloist input parameters. 
+    def melody(durationMultiplier)
+        // Random
+        if ((len(solo.notesList)) != 0)
+            if (random() < drum.getWeight(music.beat))
+                var idx = round(random()*(len(solo.notesList) - 1))
+                currentNote = solo.notesList[idx]
+                currentNote.duration = int(16.0*(1.0-drum.getWeight(music.beat)) + .5)*durationMultiplier
+                currentNote.velocity = algoObj.treble
+                return currentNote
+        return Note(0, 0, 0)
 
 
-	// Based entired on the scale found in our musicObj. We start in C major right now,
-	// and this will start playing without input from our soloist. Needs some more work --
-	// we have a hard-coded structure right now for all of the important notes, but we need
-	// something that we can use on the notes in the middle. As it is right now, we only
-	// have a chance to play bass on two beats.
-	def bass()
-		var newPitch = lastBassNotePlayed
-		while (newPitch == lastBassNotePlayed)
-			x = random() // Random variable for cases
-			if (x <= .5)
-				newPitch = music.scale[0] - 24 // Root
-			elif (x <= .7)
-				newPitch = music.scale[2] - 24 // Third
-			elif (x <= .9)
-				newPitch = music.scale[4] - 24 // Fifth
-			else 
-				newPitch = music.scale[6] - 24 // Seventh
-		if ((music.beat%16) == 0) // If it's the beginning of a bar
-			return Note(newPitch, 16, 100)
-		elif ((music.beat%16) == 14) // If it's right before a new bar
-			if (random() > .4)
-				return Note(newPitch, 4, 100) // Play for shorter 
-			else
-				return Note(0,0,0) // Or don't play
-		// Here we could have an else statement which gives chances
-		// to play the bass on a non-important beat - sync with bass drum?
-		// I remember a while back dannenberg said that sounded good.
+    // Based entired on the scale found in our musicObj. We start in C major right now,
+    // and this will start playing without input from our soloist. Needs some more work --
+    // we have a hard-coded structure right now for all of the important notes, but we need
+    // something that we can use on the notes in the middle. As it is right now, we only
+    // have a chance to play bass on two beats.
+    def bass()
+        var newPitch = lastBassNotePlayed
+        while (newPitch == lastBassNotePlayed)
+            x = random() // Random variable for cases
+            if (x <= .5)
+                newPitch = music.scale[0] - 24 // Root
+            elif (x <= .7)
+                newPitch = music.scale[2] - 24 // Third
+            elif (x <= .9)
+                newPitch = music.scale[4] - 24 // Fifth
+            else 
+                newPitch = music.scale[6] - 24 // Seventh
+        if ((music.beat%16) == 0) // If it's the beginning of a bar
+            return Note(newPitch, algoObj.bass_vel, 16)
+        elif ((music.beat%16) == 14) // If it's right before a new bar
+            if (random() > .4)
+                return Note(newPitch, algoObj.bass_vel, 4) // Play for shorter 
+            else
+                return Note(0,0,0) // Or don't play
+        // Here we could have an else statement which gives chances
+        // to play the bass on a non-important beat - sync with bass drum?
+        // I remember a while back dannenberg said that sounded good.
 

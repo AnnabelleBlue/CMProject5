@@ -2,9 +2,7 @@ require "sched"
 require "midi-io"
 require "strparse.srp"
 
-require "helpers"
 require "handlers"
-require "variables"
 
 
 
@@ -36,9 +34,9 @@ def algorithm()
    	return
 
 def solo()
-    if (musicObj.play_note != 0)
-        musicObj.addNote((Note(musicObj.play_note, 100, 4)), midi_out)
-        musicObj.play_note = 0
+    if (musicObj.note_on != 0)
+        musicObj.addNote((Note(musicObj.note_on, 100, 8)), midi_out)
+        musicObj.note_on = 0
         
 
 // Plays one beat of one instrument

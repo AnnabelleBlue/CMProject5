@@ -5,6 +5,7 @@ require "noteheader"
 require "soloinput"
 require "musicobj"
 require "electronic"
+require "algoobj"
 
 
 ////////////////////////
@@ -14,6 +15,7 @@ require "electronic"
 soloObj = SoloistData()
 musicObj = MusicData()
 drumObj = DrumData()
+algoObj = AlgoData()
 electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj, drumObj)
 
 ///////////////////////////////////////
@@ -38,7 +40,7 @@ def handle_8_push(path, isOn)
     
     // Turns note on or off
     if isOn > 0.5
-        musicObj.play_note = note
+        musicObj.note_on = note
     else
         musicObj.note_off = note
         
@@ -62,6 +64,9 @@ def handle_2_multitoggle(path, isOn)
  
 // ALGO SWITCHER / PARAMETER CONTROLLER
 def handle_3_rotary(path, turn)
+    var device = osc_server_reply()
+    var index = int(path[9])
+    
     display path, turn
     
 toggles = [0,0,0]

@@ -6,7 +6,7 @@ class MusicData
     var instrument
     var inst_list
     var activeNotesList
-    var play_note 
+    var note_on
     var note_off
     
     def init()
@@ -18,11 +18,11 @@ class MusicData
         inst_list = [11, 114, 95, 97, 12, 76, 8, 7]
         instrument = 11
         activeNotesList = []
-        play_note = 0
+        note_on = 0
         note_off = 0
         
     def addNote(note, midiout)
-        if (note.pitch == 0)
+        if (note == nil or note.pitch == 0)
             return
         var addedNoteBool = false
         for i = 0 to len(activeNotesList)
