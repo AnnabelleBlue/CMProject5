@@ -14,11 +14,11 @@ require "variables"
 def play_note(note)
     musicObj.addNote(note, midi_out)
 
-def drumbeat(beat)    
+def drumbeat()    
     for i = 0 to 3
         midi_out.note_on(0x99, drumObj.drums[i], 0)
         
-        if drumObj.drum_patterns[i][beat] == 1
+        if drumObj.drum_patterns[i][musicObj.beat%32] == 1
             midi_out.note_on(0x99, drumObj.drums[i], 80)
             
     
@@ -26,6 +26,7 @@ def algorithm()
     firstNoteDurationMultiplier = 1
    	melody_note = electronicAlgorithm.melody(firstNoteDurationMultiplier)
    	play_note(melody_note)
+    // Large chance to play two melody notes. 
     if (random() > .7)
         secondNoteDurationMultiplier = 2
         melody_note_2 = electronicAlgorithm.melody(secondNoteDurationMultiplier)
@@ -35,28 +36,19 @@ def algorithm()
    	return
 
 def solo()
-    display musicObj.note_off, musicObj.play_note, musicObj.instrument
-    if (musicObj.note_off != 0)
-        midi_out.note_on(144, musicObj.note_off, 0)
-        musicObj.note_off = 0
-        
     if (musicObj.play_note != 0)
-        midi_out.note_on(144, musicObj.play_note, 100)
+        musicObj.addNote((Note(musicObj.play_note, 100, 4)), midi_out)
         musicObj.play_note = 0
         
 
 // Plays one beat of one instrument
 def play_beat(beat) 
-    drumbeat(beat)
+    drumbeat()
     algorithm()
     solo()
     musicObj.update(midi_out) // Increments the beat, stops notes,
     					// and other things.
     					// Should happen after the algo/drums play
-    
-    if beat == 31
-        beat = 0
-    
     // Schedule next event
     the_sched.cause(1, nil, 'play_beat', beat + 1)
     

@@ -57,7 +57,7 @@ def handle_2_multitoggle(path, isOn)
   
     if int(y/2) == int((y-1)/2)
         offset = 16
-    
+
     drumObj.drum_patterns[int((6-y)/2)][x - 1 + offset] = int(isOn)  
  
 // ALGO SWITCHER / PARAMETER CONTROLLER

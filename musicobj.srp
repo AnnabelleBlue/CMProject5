@@ -14,7 +14,7 @@ class MusicData
         // scale starts on c major
         scale = [60, 62, 64, 65, 67, 69, 71, 72]
         volume = 1
-        tempo = 240 // bpm
+        tempo = 320 // bpm
         inst_list = [11, 114, 95, 97, 12, 76, 8, 7]
         instrument = 11
         activeNotesList = []

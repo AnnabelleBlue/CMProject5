@@ -17,9 +17,9 @@ class SoloistData
 	// can think of a good method by all means - it would be really cool.
 
 	def init()
-		numNotesStored = 20
+		numNotesStored = 30
 		notesList = []
-		memoryTime = 20 // Amount of times we call update() before
+		memoryTime = 400 // Amount of times we call update() before
 		tonic = 60 // Again, not sure if this is necessary...
  
 	def addNote(note)
