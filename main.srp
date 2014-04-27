@@ -35,7 +35,7 @@ def algorithm()
 
 def solo()
     if (musicObj.note_on != 0)
-        musicObj.addNote((Note(musicObj.note_on, 100, 8)), midi_out)
+        musicObj.addNote((Note(musicObj.note_on, soloObj.velocity, 8)), midi_out)
         musicObj.note_on = 0
         
 

@@ -3,40 +3,42 @@
 // Mostly, the generation algorithms will look at notesList.
 
 class SoloistData
-	var numNotesStored // (int) We store a certain number of notes to work with
-	var notesList // (list) LIFO, oldest notes replaced
-	var memoryTime // (int) After some time, we delete a note from notesList
-	var tonic // (int) Maybe have this? The soloist could choose their key,
-			  // and given that data we would have a better idea of where the
-			  // melodies we want to work with begin and end.
+    var velocity
+    var numNotesStored // (int) We store a certain number of notes to work with
+    var notesList // (list) LIFO, oldest notes replaced
+    var memoryTime // (int) After some time, we delete a note from notesList
+    var tonic // (int) Maybe have this? The soloist could choose their key,
+              // and given that data we would have a better idea of where the
+              // melodies we want to work with begin and end.
 
-	// Any info about tempo we could glean from the amount of notes in a list
-	// based on memoryTime. That would tell us the average amount of notes
-	// per (memoryTime) time. I don't think doing precise rhythm checking is
-	// worth the amount of time it would take to implement, but if one of you
-	// can think of a good method by all means - it would be really cool.
+    // Any info about tempo we could glean from the amount of notes in a list
+    // based on memoryTime. That would tell us the average amount of notes
+    // per (memoryTime) time. I don't think doing precise rhythm checking is
+    // worth the amount of time it would take to implement, but if one of you
+    // can think of a good method by all means - it would be really cool.
 
-	def init()
-		numNotesStored = 30
-		notesList = []
-		memoryTime = 400 // Amount of times we call update() before
-		tonic = 60 // Again, not sure if this is necessary...
+    def init()
+        velocity = 63
+        numNotesStored = 30
+        notesList = []
+        memoryTime = 400 // Amount of times we call update() before
+        tonic = 60 // Again, not sure if this is necessary...
  
-	def addNote(note)
-		if (len(notesList) > numNotesStored)
-			notesList.uninsert(len(notesList)-1)
-		note.soloistMemory = memoryTime
-		notesList.insert(0, note)
+    def addNote(note)
+        if (len(notesList) > numNotesStored)
+            notesList.uninsert(len(notesList)-1)
+        note.soloistMemory = memoryTime
+        notesList.insert(0, note)
 
-	// Deletes note at the nth index
-	def deleteNote(n)
-		notesList.uninsert(n)
+    // Deletes note at the nth index
+    def deleteNote(n)
+        notesList.uninsert(n)
 
-	def update()
-		for i = 0 to len(notesList)
-			currentNote = notesList[i]
-			if (currentNote.soloistMemory == 0)
-				deleteNote(i)
-			else
-				notesList[i].soloistMemory = notesList[i].soloistMemory - 1
+    def update()
+        for i = 0 to len(notesList)
+            currentNote = notesList[i]
+            if (currentNote.soloistMemory == 0)
+                deleteNote(i)
+            else
+                notesList[i].soloistMemory = notesList[i].soloistMemory - 1
 
