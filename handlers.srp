@@ -5,6 +5,7 @@ require "noteheader"
 require "soloinput"
 require "musicobj"
 require "electronic"
+require "scale"
 require "algoobj"
 
 
@@ -17,6 +18,7 @@ musicObj = MusicData()
 drumObj = DrumData()
 algoObj = AlgoData()
 electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj, drumObj, algoObj)
+scaleAlgorithm = ScaleAlgorithm(musicObj, soloObj, drumObj)
 algo_device = 1
 param_device = 0
 
