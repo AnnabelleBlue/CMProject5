@@ -7,7 +7,7 @@ class AlgoData
     
     
     def init()
-        bass_vel = 80
+        bass_vel = 0
         treble_vel = 0
         arpeggio1On = 0
         arpeggio2On = 0

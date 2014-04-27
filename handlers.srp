@@ -70,14 +70,14 @@ def handle_3_rotary(path, turn)
     var device = osc_server_reply()
     var index = int(path[9])
     
-    if device == 1
+    if device == algo_device
         if index == 1
             algoObj.bass_vel = int(turn * 127)
-        elif index == 1
+        elif index == 2
             algoObj.treble_vel = int(turn * 127)
         display algoObj.bass_vel, algoObj.treble_vel
     
-    display path, turn
+    display path, turn, device
     
 toggles = [0,0,0]
 // ALGO SWITCHER / PARAMETER CONTROLLER
@@ -86,13 +86,13 @@ def handle_3_toggle(path, isOn)
     var flip = int(isOn)
     var index = int(path[9]) - 1
     
-    if device == 0
+    if device == param_device
         toggles[index] = flip
         
         instrument = musicObj.inst_list[toggles[0] + (toggles[1] * 2) + (toggles[2] * 4)]
-        //vtsched.start_use()
+        vtsched.start_use()
         midi_out.program(0, instrument)
-        //vtsched.finish_use()
+        vtsched.finish_use()
         
         musicObj.instrument = instrument
         display "DEVICE 0", toggles, musicObj.instrument

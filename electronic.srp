@@ -24,7 +24,7 @@ class ElectronicAlgorithm
                 var idx = round(random()*(len(solo.notesList) - 1))
                 currentNote = solo.notesList[idx]
                 currentNote.duration = int(16.0*(1.0-drum.getWeight(music.beat)) + .5)*durationMultiplier
-                currentNote.velocity = algoObj.treble
+                currentNote.velocity = 100
                 return currentNote
         return Note(0, 0, 0)
 
