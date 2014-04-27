@@ -11,7 +11,7 @@ class ElectronicAlgorithm
         solo = soloinputObj // Hopefully these are "aliases" to the given instance
         music = musicObj    // UPDATE: THEY ARE
         drum = drumObj
-        var lastBassNotePlayed = music.scale[0] - 1
+        var lastBassNotePlayed = music.getPitch(0) - 1
 
     // Main idea would be to make this more "sticky", as in it will play similar melodies
     // over and over and "evolve" them over time. One thing we could do is run through our
@@ -39,13 +39,13 @@ class ElectronicAlgorithm
         while (newPitch == lastBassNotePlayed)
             x = random() // Random variable for cases
             if (x <= .5)
-                newPitch = music.scale[0] - 24 // Root
+                newPitch = music.getPitch(0) - 24 // Root
             elif (x <= .7)
-                newPitch = music.scale[2] - 24 // Third
+                newPitch = music.getPitch(2) - 24 // Third
             elif (x <= .9)
-                newPitch = music.scale[4] - 24 // Fifth
+                newPitch = music.getPitch(4) - 24 // Fifth
             else 
-                newPitch = music.scale[6] - 24 // Seventh
+                newPitch = music.getPitch(6) - 24 // Seventh
         if ((music.beat%16) == 0) // If it's the beginning of a bar
             return Note(newPitch, algoObj.bass_vel, 16)
         elif ((music.beat%16) == 14) // If it's right before a new bar

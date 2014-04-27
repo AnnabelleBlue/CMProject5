@@ -1,6 +1,9 @@
 class MusicData
     var beat
-    var scale
+    var maj_scale
+    var min_scale
+    var offset
+    var isMaj
     var volume
     var tempo
     var instrument
@@ -12,7 +15,10 @@ class MusicData
     def init()
         beat = 0
         // scale starts on c major
-        scale = [60, 62, 64, 65, 67, 69, 71, 72]
+        maj_scale = [0, 2, 4, 5, 7, 9, 11, 12]
+        offset = 60
+        isMaj = true
+        min_scale = []
         volume = 1
         tempo = 320 // bpm
         inst_list = [11, 114, 95, 97, 12, 76, 8, 7]
@@ -55,6 +61,12 @@ class MusicData
                 midiout.note_on(144, currentNote.pitch, 0)
             i = i + 1
         return
+        
+    def getPitch(index)
+        if isMaj
+            return maj_pitch[index] + offset
+        else
+            return min_pitch[index] + offset
 
 
 
