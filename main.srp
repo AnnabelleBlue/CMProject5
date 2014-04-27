@@ -23,19 +23,25 @@ def drumbeat(beat)
             
     
 def algorithm()
-   	melody_note = electronicAlgorithm.melody()
+    firstNoteDurationMultiplier = 1
+   	melody_note = electronicAlgorithm.melody(firstNoteDurationMultiplier)
    	play_note(melody_note)
+    if (random() > .7)
+        secondNoteDurationMultiplier = 2
+        melody_note_2 = electronicAlgorithm.melody(secondNoteDurationMultiplier)
+        play_note(melody_note_2)
     bass_note = electronicAlgorithm.bass()
     play_note(bass_note)
    	return
 
 def solo()
-    if musicObj.note_off
-        midi_out.note_on(musicObj.instrument, musicObj.play_note, 0)
+    display musicObj.note_off, musicObj.play_note, musicObj.instrument
+    if (musicObj.note_off != 0)
+        midi_out.note_on(144, musicObj.note_off, 0)
         musicObj.note_off = 0
         
-    if musicObj.play_note
-        midi_out.note_on(musicObj.instrument, musicObj.play_note, 100)
+    if (musicObj.play_note != 0)
+        midi_out.note_on(144, musicObj.play_note, 100)
         musicObj.play_note = 0
         
 

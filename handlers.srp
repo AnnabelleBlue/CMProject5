@@ -40,7 +40,7 @@ def handle_8_push(path, isOn)
     if isOn > 0.5
         musicObj.play_note = note
     else
-        musicObj.note_off = true
+        musicObj.note_off = note
         
     // Adds note to algorithm input
     soloObj.addNote(Note(note, vel, 4))
@@ -75,9 +75,9 @@ def handle_3_toggle(path, isOn)
         toggles[index] = flip
         
         instrument = musicObj.inst_list[toggles[0] + (toggles[1] * 2) + (toggles[2] * 4)]
-        vtsched.start_use()
+        //vtsched.start_use()
         midi_out.program(0, instrument)
-        vtsched.finish_use()
+        //vtsched.finish_use()
         
         musicObj.instrument = instrument
         display "DEVICE 0", toggles, musicObj.instrument

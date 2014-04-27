@@ -19,7 +19,7 @@ class MusicData
         instrument = 11
         activeNotesList = []
         play_note = 0
-        note_off = false
+        note_off = 0
         
     def addNote(note, midiout)
         if (note.pitch == 0)
