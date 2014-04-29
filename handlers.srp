@@ -1,15 +1,15 @@
 ///////////////////////////////////////////////////////////////
 //  Contributors: Jasmine Peterson
 //
-//  This function handles reading from OSC 
+//  This file handles reading from OSC and redirects to the 
+//  appropriate data structures and functions.  
 //
-//
-//
-//
+//  Notes: There is an overlap on OSC input devices.  To counteract
+//  this, the first device touched is dedicated to being the control
+//  for parameter input and the second device is for controlling
+//  algorithm input.
 //
 ////////////////////////////////////////////////////////////////
-
-
 
 require "drum_input.srp"
 require "noteheader"
@@ -40,12 +40,12 @@ param_device = 0
 //              Handlers
 //
 ///////////////////////////////////////
-vel = 80
 
 // SOLOIST
 // Handles soloist input by adding the played
 // note to musicObj to be played and to soloObj
 // to seed the algorithm
+// Contributors: Jasmine
 def handle_8_push(path, isOn)
     display path, isOn
     
@@ -66,7 +66,7 @@ def handle_8_push(path, isOn)
         musicObj.note_off = note
         
     // Adds note to algorithm input
-    soloObj.addNote(Note(note, vel, 4))
+    soloObj.addNote(Note(note, 80, 4))
 
     
 // DRUM BEAT
@@ -74,6 +74,7 @@ def handle_8_push(path, isOn)
 // and adding the associated beat to the drum pattern
 // Note that each drum line is 32 beats long spanning
 // two rows of 16 index OSC input
+// Contributors: Jasmine
 def handle_2_multitoggle(path, isOn)
     // Finds coordinate of pushed button
     x = int(path[17])
@@ -93,6 +94,7 @@ def handle_2_multitoggle(path, isOn)
  
 // ALGO SWITCHER 
 // Controls the velocity of the bass and treble lines of the algorithm
+// Contributors: Jasmine
 def handle_3_rotary(path, turn)
     // Find device indicator and index from path
     var device = osc_server_reply()
@@ -108,6 +110,7 @@ def handle_3_rotary(path, turn)
     
 toggles = [0,0,0]
 // ALGO SWITCHER / PARAMETER CONTROLLER
+// Contributors: Jasmine
 def handle_3_toggle(path, isOn)
     // Device indicator
     var device = osc_server_reply()
@@ -144,6 +147,7 @@ def handle_3_toggle(path, isOn)
         
 // PARAMETER CONTROLLER
 // Change Key based on keyboard input
+// Contributors: Jasmine
 def handle_2_push(path, isOn)
     // Sets key to new key
     musicObj.root = 59 + int(path[7])
@@ -153,6 +157,7 @@ def handle_2_push(path, isOn)
     
 // PARAMETER CONTROLLER
 // Change volume/velocity of soloist and drums
+// Contributors: Jasmine, Richard
 def handle_3_fader(path, val)
     // Finds which velocity to change 
     var index = int(path[8])
@@ -166,6 +171,7 @@ def handle_3_fader(path, val)
 
 // PARAMETER CONTROLLER
 // Change Major / Minor
+// Contributors: Jasmine
 def handle_3_push(path, isOn)
     var index = int(path[7])
     
@@ -187,6 +193,7 @@ def handle_3_push(path, isOn)
 //          Server Methods
 //
 ///////////////////////////////////////
+// Contributors: Jasmine
 def add_server_methods()
     // SOLOIST
     for i = 1 to 25

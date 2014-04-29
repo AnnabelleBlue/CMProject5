@@ -8,9 +8,12 @@ require "handlers"
 // Given a note, plays it. This schedules the eventual note_off as well.
 // The notesList in musicObj is used to determine when notes are to be
 // turned off.
+// Contributors: Matt
 def play_note(note)
     musicObj.addNote(note, midi_out)
 
+// Plays the appropriate drumbeats for this particular note 
+// Contributors: Jasmine
 def drumbeat()    
     for i = 0 to 3
         midi_out.note_on(0x99, drumObj.drums[i], 0)
@@ -19,6 +22,7 @@ def drumbeat()
             midi_out.note_on(0x99, drumObj.drums[i], drumObj.velocity)
             
     
+// Contributors: Matt
 def algorithm()
     firstNoteDurationMultiplier = 1
    	melody_note = electronicAlgorithm.melody(firstNoteDurationMultiplier)
@@ -30,10 +34,10 @@ def algorithm()
         play_note(melody_note_2)
     bass_note = electronicAlgorithm.bass()
     play_note(bass_note)
-    //scale_note = scaleAlgorithm.melody()
-    //play_note(scale_note)
    	return
 
+// Plays one note for the soloist if appropriate
+// Contributors: Jasmine, Matt
 def solo()
     if (musicObj.note_on != 0)
         musicObj.addNote((Note(musicObj.note_on, soloObj.velocity, 8)), midi_out)
@@ -41,6 +45,7 @@ def solo()
         
 
 // Plays one beat of one instrument
+// Contributors: Jasmine, Matt
 def play_beat(beat) 
     drumbeat()
     algorithm()
@@ -51,15 +56,18 @@ def play_beat(beat)
     // Schedule next event
     the_sched.cause(1, nil, 'play_beat', beat + 1)
     
+// Contributors: Jasmine
 def timer_callback()
     rtsched.poll(time_get())
  
  
+// Contributors: Jasmine
 def start(rest ignore)
     vtsched.start_use()
     play_beat(0)
     vtsched.finish_use()
  
+// Contributors: Jasmine
 def schedule()
     midi_out.start(0)   // Starts up midi
     sched_init()        // Creates vtsched and rtsched
@@ -71,10 +79,12 @@ def schedule()
     
     sched_run()
 
+// Contributors: Jasmine
 def sched_poll():
     rtsched.poll(time_get())
     osc_server_poll()
     
+// Contributors: Jasmine
 def init()
     display "Device 1 Connect", osc_server_init("4401",t)
     add_server_methods()
