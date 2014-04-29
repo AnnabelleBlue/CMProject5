@@ -1,0 +1,5 @@
+OnInit: argv[0] |C:\Program Files (x86)\Serpent\wxserpent64.exe|
+OnInit: argv[1] |C:\Users\thundertoss\Documents\GitHub\CMProject5\musicobj.srp|
+redirecting output to wx console...
+stack allocation took 0s
+file_load: filename musicobj.srp require false
