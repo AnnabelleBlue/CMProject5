@@ -1,17 +1,28 @@
+/////////////////////////////////////////////////////////////////////
+//  Contributors: Matt, Jasmine
+//
+//  This file contains all general information about the system
+//  performing such as underlying key, tempo, volume, the beat index,
+//  etc.
+//
+/////////////////////////////////////////////////////////////////////
+
+
 class MusicData
-    var beat
-    var maj_scale
-    var min_scale
-    var root
-    var isMaj
-    var volume
+    var beat            // the beat we are on, 32 beat loop
+    var maj_scale       // The underlying major scale
+    var min_scale       // The underlying minor scale
+    var root            // The root of our key
+    var isMaj           // Maj/min switch
+    var volume 
     var tempo
-    var instrument
-    var inst_list
-    var activeNotesList
-    var note_on
-    var note_off
+    var instrument      // The choice of soloist instrument
+    var inst_list       // All instrument choices
+    var activeNotesList // Notes that need to be played and are playing
+    var note_on         // If a note needs to be turned on
+    var note_off        // If a note needs to be turned off
     
+    // Contributors: Matt, Jasmine
     def init()
         beat = 0
         // scale starts on c major
@@ -26,7 +37,8 @@ class MusicData
         activeNotesList = []
         note_on = 0
         note_off = 0
-        
+    
+    // Contributors: Matt
     def addNote(note, midiout)
         if (note == nil or note.pitch == 0)
             return
@@ -45,7 +57,7 @@ class MusicData
             activeNotesList.insert(0, note)
             midiout.note_on(144, note.pitch, note.velocity)
 
-
+    // Contributors: Matt
     def update(midiout)
         beat = beat + 1
         if (len(activeNotesList) == 0)
@@ -62,11 +74,13 @@ class MusicData
             i = i + 1
         return
 
+    // Contributors: Jasmine
     def setTempo(val)
     	tempo = val
     	vtsched.set_bpm(val)
     	display tempo
         
+    // Contributors: Jasmine
     def getPitch(index)
         if isMaj
             return maj_scale[index] + root

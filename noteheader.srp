@@ -2,6 +2,7 @@
 // This contains the MIDI ints pitch and velocity.
 // The duration is something that we will use in our scheduler that is not
 // normally included in MIDI messages.
+// Contributors: Matt
 
 class Note
 	var pitch

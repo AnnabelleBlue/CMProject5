@@ -1,3 +1,9 @@
+/////////////////////////////////////////////////////////////////////
+//  Contributors: Matt, Stephanie
+//
+//
+/////////////////////////////////////////////////////////////////////
+
 require "noteheader"
 
 class ElectronicAlgorithm
@@ -19,6 +25,7 @@ class ElectronicAlgorithm
     // over and over and "evolve" them over time. One thing we could do is run through our
     // solo.notesList in backwards and forwards motions starting at certain indices.
     // Don't entirely know. We should also play with the soloist input parameters. 
+    // Contributors: Matt, Stephanie
     def melody(durationMultiplier)
         // Random
         if ((len(solo.notesList)) != 0)
@@ -36,6 +43,7 @@ class ElectronicAlgorithm
     // we have a hard-coded structure right now for all of the important notes, but we need
     // something that we can use on the notes in the middle. As it is right now, we only
     // have a chance to play bass on two beats.
+    // Contributors: Matt, Stephanie
     def bass()
         var newPitch = lastBassNotePlayed
         while (newPitch == lastBassNotePlayed)

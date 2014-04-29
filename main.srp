@@ -8,7 +8,7 @@ require "handlers"
 // Given a note, plays it. This schedules the eventual note_off as well.
 // The notesList in musicObj is used to determine when notes are to be
 // turned off.
-// Contributors: Matt
+// Contributors: Matt, Stephanie
 def play_note(note)
     musicObj.addNote(note, midi_out)
 
@@ -22,7 +22,7 @@ def drumbeat()
             midi_out.note_on(0x99, drumObj.drums[i], drumObj.velocity)
             
     
-// Contributors: Matt
+// Contributors: Matt, Stephanie
 def algorithm()
     firstNoteDurationMultiplier = 1
    	melody_note = electronicAlgorithm.melody(firstNoteDurationMultiplier)

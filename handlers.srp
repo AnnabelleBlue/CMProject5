@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////
-//  Contributors: Jasmine Peterson
+//  Contributors: Jasmine, Richard
 //
 //  This file handles reading from OSC and redirects to the 
 //  appropriate data structures and functions.  

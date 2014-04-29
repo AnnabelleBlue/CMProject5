@@ -1,12 +1,19 @@
+/////////////////////////////////////////////////////////////////////
+//  Contributors: Jasmine, Richard
+//
+//  This file contains the data structure for the drums.
+/////////////////////////////////////////////////////////////////////
+
 class DrumData
-    var pattern1
-    var pattern2
-    var pattern3
-    var drum_patterns
-    var drums
-    var velocity
+    var pattern1        // hi hat pattern
+    var pattern2        // snare pattern
+    var pattern3        // bass patern
+    var drum_patterns   // contains all patterns
+    var drums           // instrument choices
+    var velocity        
     var weightMax
     
+    // Contributors: Richard, Jasmine
     def init()
         pattern1 = array(32)
         pattern2 = array(32)
@@ -21,6 +28,7 @@ class DrumData
         drums = [44, 38, 36]
         velocity = 63
         
+    // Contributors: Richard
     def getWeight(beat)
         var i = (beat%32)
         weightMax = 0.001

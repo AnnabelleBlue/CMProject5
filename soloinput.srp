@@ -1,6 +1,7 @@
 // An instance of this object will store data about the soloist input, it will
 // be written to by the OSC handlers, and read from the generation algorithms.
 // Mostly, the generation algorithms will look at notesList.
+// Contributors: Matt
 
 class SoloistData
     var velocity
