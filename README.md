@@ -1,4 +1,4 @@
-Contents
+CONTENTS
 	Data structure files
 		algoobj.srp
         noteheader.srp
@@ -14,7 +14,7 @@ Contents
 	
     main.srp
 
-OSC Controls
+OSC CONTROLS
     Soloist - LiveControl Ipad - Keys
         Just a regular scale with the bottom C set as
         middle C (pitch = 60) and the top C set as an octave up
@@ -42,6 +42,8 @@ OSC Controls
         The next two lines control the snare drum
         The bottom two lines control the bass drum
 
+        
+FILE DESCRIPTIONS
 noteheader.srp 
     contains the class which defines our note instances, which are used in soloinput, electronic.srp, and main.srp.
 
@@ -65,3 +67,33 @@ handlers.srp
     
 main.srp 
     contains the OSC handlers and runs our main music loop
+    
+    
+ARCHITECTURE
+main loop -
+    continuously schedules and plays notes
+    Relies on: 
+        musicObj
+        soloObj
+        drumObj
+        electronicAlgorithm
+    
+handlers - 
+    redirects OSC to various data structures
+    Relies on:
+        musicObj
+        algoObj
+    Reads into:
+        drumObj
+        algoObj
+        soloObj
+        musicObj
+        
+algorithm - 
+    continuously feeds data into musicObj to be played
+    Relies on:
+        musicObj
+        algoObj
+        soloObj
+        drumObj
+        
