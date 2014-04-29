@@ -11,23 +11,23 @@ class ElectronicAlgorithm
     var drum
     var music
     var algo
-    var lastBassNotePlayed
-    
+    var lastBassNotePlayed // We need this to make sure we don't
+                           // play the same thing twice in a row.
+
     def init(musicObj, soloinputObj, drumObj, algoObj)
 
-        solo = soloinputObj // Hopefully these are "aliases" to the given instance
-        music = musicObj    // UPDATE: THEY ARE
+        solo = soloinputObj
+        music = musicObj
         drum = drumObj
         algo = algoObj
         var lastBassNotePlayed = music.getPitch(0) - 1
 
-    // Main idea would be to make this more "sticky", as in it will play similar melodies
-    // over and over and "evolve" them over time. One thing we could do is run through our
-    // solo.notesList in backwards and forwards motions starting at certain indices.
-    // Don't entirely know. We should also play with the soloist input parameters. 
+    // We pick a note randomly from the notes the soloist has supplied us,
+    // and play it with a chance which is dependent on the weight of the drums
+    // at that given section. The more drums are playing, the more chance we
+    // have for the melody to play a note. This is what creates rhythm.
     // Contributors: Matt, Stephanie
     def melody(durationMultiplier)
-        // Random
         if ((len(solo.notesList)) != 0)
             if (random() < drum.getWeight(music.beat))
                 var idx = round(random()*(len(solo.notesList) - 1))
@@ -38,11 +38,11 @@ class ElectronicAlgorithm
         return Note(0, 0, 0)
 
 
-    // Based entired on the scale found in our musicObj. We start in C major right now,
-    // and this will start playing without input from our soloist. Needs some more work --
-    // we have a hard-coded structure right now for all of the important notes, but we need
-    // something that we can use on the notes in the middle. As it is right now, we only
-    // have a chance to play bass on two beats.
+
+    // Picks between the root, third, fifth, and seventh of our scale,
+    // and plays one of them. The bass will only play when we change bars or
+    // two beats before we change bars. We make sure to never play the same
+    // note twice in a row.
     // Contributors: Matt, Stephanie
     def bass()
         var newPitch = lastBassNotePlayed
@@ -54,18 +54,13 @@ class ElectronicAlgorithm
                 newPitch = music.getPitch(2) - 24 // Third
             elif (x <= .9)
                 newPitch = music.getPitch(4) - 24 // Fifth
-            else 
+            else
                 newPitch = music.getPitch(6) - 24 // Seventh
         if ((music.beat%16) == 0) // If it's the beginning of a bar
             return Note(newPitch, algoObj.bass_vel, 16)
         elif ((music.beat%16) == 14) // If it's right before a new bar
             if (random() > .4)
-                return Note(newPitch, algoObj.bass_vel, 4) // Play for shorter 
+                return Note(newPitch, algoObj.bass_vel, 4) // Play for shorter
             else
                 return Note(0,0,0) // Or don't play
         return Note(0,0,0)
-
-        // Here we could have an else statement which gives chances
-        // to play the bass on a non-important beat - sync with bass drum?
-        // I remember a while back dannenberg said that sounded good.
-

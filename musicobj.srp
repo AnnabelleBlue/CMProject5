@@ -14,14 +14,14 @@ class MusicData
     var min_scale       // The underlying minor scale
     var root            // The root of our key
     var isMaj           // Maj/min switch
-    var volume 
+    var volume
     var tempo
     var instrument      // The choice of soloist instrument
     var inst_list       // All instrument choices
     var activeNotesList // Notes that need to be played and are playing
     var note_on         // If a note needs to be turned on
     var note_off        // If a note needs to be turned off
-    
+
     // Contributors: Matt, Jasmine
     def init()
         beat = 0
@@ -37,7 +37,10 @@ class MusicData
         activeNotesList = []
         note_on = 0
         note_off = 0
-    
+
+    // Add a note to our list. If the pitch is already there,
+    // replay the note and set the duration to the max of the
+    // two notes.
     // Contributors: Matt
     def addNote(note, midiout)
         if (note == nil or note.pitch == 0)
@@ -57,6 +60,8 @@ class MusicData
             activeNotesList.insert(0, note)
             midiout.note_on(144, note.pitch, note.velocity)
 
+    // Update each note in our activeNotesList, lowering the "duration".
+    // If the note's duration is zero, extract it from the list.
     // Contributors: Matt
     def update(midiout)
         beat = beat + 1
@@ -79,7 +84,7 @@ class MusicData
     	tempo = val
     	vtsched.set_bpm(val)
     	display tempo
-        
+
     // Contributors: Jasmine
     def getPitch(index)
         if isMaj
