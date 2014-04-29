@@ -1,7 +1,9 @@
 /////////////////////////////////////////////////////////////////////
+//  Contributors: Jasmine
 //
-//
-//
+//  This files contains the data structure that holds various algorithm
+//  information such as velocity for different parts of the algorithm
+//  and which parts are feeding into the algorithm.
 /////////////////////////////////////////////////////////////////////
 
 class AlgoData
