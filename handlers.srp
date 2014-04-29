@@ -1,11 +1,22 @@
+///////////////////////////////////////////////////////////////
+//  Contributors: Jasmine Peterson
+//
+//  This function handles reading from OSC 
+//
+//
+//
+//
+//
+////////////////////////////////////////////////////////////////
+
+
 
 require "drum_input.srp"
-
 require "noteheader"
 require "soloinput"
 require "musicobj"
 require "electronic"
-require "scale"
+//require "scale"
 require "algoobj"
 
 
@@ -18,10 +29,11 @@ musicObj = MusicData()
 drumObj = DrumData()
 algoObj = AlgoData()
 electronicAlgorithm = ElectronicAlgorithm(musicObj, soloObj, drumObj, algoObj)
-scaleAlgorithm = ScaleAlgorithm(musicObj, soloObj, drumObj)
+
+// There is an overlap between OSC inputs with devices.  The device controlling the 
+// parameters must be pressed first in order to guarantee proper usage.
 algo_device = 1
 param_device = 0
-
 
 ///////////////////////////////////////
 //
@@ -31,6 +43,9 @@ param_device = 0
 vel = 80
 
 // SOLOIST
+// Handles soloist input by adding the played
+// note to musicObj to be played and to soloObj
+// to seed the algorithm
 def handle_8_push(path, isOn)
     display path, isOn
     
@@ -41,6 +56,7 @@ def handle_8_push(path, isOn)
     if len(path) == 9
         note = int(path[7] + path[8])
     
+    // Finds pitch starting at middle C
     note = note + 59
     
     // Turns note on or off
@@ -54,24 +70,35 @@ def handle_8_push(path, isOn)
 
     
 // DRUM BEAT
+// Handles drum beat input by taking the drum index
+// and adding the associated beat to the drum pattern
+// Note that each drum line is 32 beats long spanning
+// two rows of 16 index OSC input
 def handle_2_multitoggle(path, isOn)
+    // Finds coordinate of pushed button
     x = int(path[17])
     y = int(path[15])
     offset = 0
     
+    // Combines path if index is two digits long
     if len(path) == 19
         x = x * 10 + int(path[18])
   
+    // If input is from second line
     if int(y/2) == int((y-1)/2)
         offset = 16
 
+    // Add input to drum pattern
     drumObj.drum_patterns[int((6-y)/2)][x - 1 + offset] = int(isOn)  
  
-// ALGO SWITCHER / PARAMETER CONTROLLER
+// ALGO SWITCHER 
+// Controls the velocity of the bass and treble lines of the algorithm
 def handle_3_rotary(path, turn)
+    // Find device indicator and index from path
     var device = osc_server_reply()
     var index = int(path[9])
     
+    // If we are using the correct device
     if device == algo_device
         if index == 1
             algoObj.bass_vel = int(turn * 127)
@@ -79,25 +106,31 @@ def handle_3_rotary(path, turn)
             algoObj.treble_vel = int(turn * 127)
         display algoObj.bass_vel, algoObj.treble_vel
     
-    display path, turn, device
-    
 toggles = [0,0,0]
 // ALGO SWITCHER / PARAMETER CONTROLLER
 def handle_3_toggle(path, isOn)
+    // Device indicator
     var device = osc_server_reply()
     var flip = int(isOn)
     var index = int(path[9]) - 1
     
+    // Determines choice of musical instrument based on binary 
+    // representation of toggles
     if device == param_device
         toggles[index] = flip
         
+        // Picks instrument
         instrument = musicObj.inst_list[toggles[0] + (toggles[1] * 2) + (toggles[2] * 4)]
+        
+        // Sets instrument
         vtsched.start_use()
         midi_out.program(0, instrument)
         vtsched.finish_use()
         
+        // Sets object instrument for future use
         musicObj.instrument = instrument
         display "DEVICE 0", toggles, musicObj.instrument
+    // Turns on and off various parts of the algorithm
     else
         if index == 0
             algoObj.arpeggio1On = flip
@@ -110,34 +143,42 @@ def handle_3_toggle(path, isOn)
     display path, isOn
         
 // PARAMETER CONTROLLER
-// Change Key
+// Change Key based on keyboard input
 def handle_2_push(path, isOn)
+    // Sets key to new key
     musicObj.root = 59 + int(path[7])
-    display musicObj.root
+    
+    // Drops algorithm seed to change to new key
     soloObj.notesList = []
     
 // PARAMETER CONTROLLER
-// Change tempo/velocity
+// Change volume/velocity of soloist and drums
 def handle_3_fader(path, val)
+    // Finds which velocity to change 
     var index = int(path[8])
-    
-    if index == 1
-        return
+
+    // Changes velocity
     if index == 2
         soloObj.velocity = int(127 * val)
-    if index == 3
+    elif index == 3
         drumObj.velocity = int(127 * val)
     display path, val
 
-// Change Major / Minor
 // PARAMETER CONTROLLER
+// Change Major / Minor
 def handle_3_push(path, isOn)
     var index = int(path[7])
+    
+    // If a red button has eben pushed
     if (index - 2) <= 0
         musicObj.isMaj = 0
+    // If a green button has been pushed
     else
         musicObj.isMaj = 1
-    display musicObj.isMaj
+        
+    // Reseeds algorithm with new information
+    soloObj.notesList = []
+    
 
 
         
